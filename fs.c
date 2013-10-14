@@ -158,7 +158,7 @@ int sfs_mkfs()
 sfs_superblock_t *sfs_print_info()
 {
 	/* TODO: load the superblock from disk and print*/
-    printf("%s%\n", sb);
+    printf("%s%\n", &sb);
 	return &sb;
 }
 
