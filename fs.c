@@ -158,8 +158,8 @@ int sfs_mkfs()
 sfs_superblock_t *sfs_print_info()
 {
 	/* TODO: load the superblock from disk and print*/
-    sfs_read_block(sb, 0);
-    printf("Magic: %d, nblocks: %d, nfreemap_blocks: %d, first_dir: %d\n" &sb.magic, &sb.nblocks, &sb.nfreemap_blocks, &sb.first_dir)
+    sfs_read_block(&sb, 0);
+    printf("Magic: %d, nblocks: %d, nfreemap_blocks: %d, first_dir: %d\n" sb.magic, sb.nblocks, sb.nfreemap_blocks, sb.first_dir)
 	return &sb;
 }
 
