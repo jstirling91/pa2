@@ -220,7 +220,7 @@ int sfs_mkdir(char *dirname)
     }
     else{
         sb.first_dir = bid;
-        printf("%d/n", sb.first_dir);
+        printf("first: %d/n", sb.first_dir);
     }
     
 	return 0;
@@ -271,7 +271,7 @@ int sfs_lsdir()
         for(ii = 0; ii < sizeof(dir.dir_name); ii++){
             printf("%c", dir.dir_name[ii]);
         }
-        printf("\n");
+        printf("AA\n");
         i++;
         sfs_read_block(&dir, dir.next_dir);
     }
@@ -279,7 +279,7 @@ int sfs_lsdir()
     for(ii = 0; ii < sizeof(dir.dir_name); ii++){
         printf("%c", dir.dir_name[ii]);
     }
-    printf("\n");
+    printf("AA\n");
 	return i;
 }
 
