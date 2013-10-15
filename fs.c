@@ -216,11 +216,14 @@ int sfs_mkdir(char *dirname)
 	/* TODO: start from the sb.first_dir, treverse the linked list */
     if(sb.first_dir != 0){
         sfs_read_block(&temp, sb.first_dir);
+        int prevBID = sb.first_dir;
         while(temp.next_dir != 0){
-            sfs_read_block(&temp, temp.next_dir);
+            prevBID = temp.next_dir;
+            sfs_read_block(&temp, prevBID);
         }
         
         temp.next_dir = bid;
+        sfs_write_block(&temp, prevBID);
         printf("next: %d name:%s\n", temp.next_dir, dirWrite.dir_name);
     }
     else{
