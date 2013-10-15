@@ -40,7 +40,7 @@ static blkid sfs_alloc_block()
         int temp = 0;
         for(j=0x1; j<0x8000; j <<= 1){
             if((freemap[i] & j) == 0){
-                freemap = freemap | j;
+                freemap[i] = freemap[i] | j;
                 return i*32 + temp;
             }
             else{
