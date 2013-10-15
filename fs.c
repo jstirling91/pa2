@@ -237,7 +237,7 @@ int sfs_rmdir(char *dirname)
         return -1;
 	/* TODO: check if no files */
     sfs_dirblock_t dirRead, temp;
-    sfs_read_block(&dirRead, dir)
+    sfs_read_block(&dirRead, dir);
     for(int i = 0; i < SFS_DB_NINODES; i++){
         if(dirRead.inodes[i] != 0)
             return -1;
