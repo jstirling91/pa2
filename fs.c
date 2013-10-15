@@ -204,7 +204,6 @@ sfs_superblock_t *sfs_print_info()
 int sfs_mkdir(char *dirname)
 {
 	/* TODO: test if the dir exists */
-    printf("HERE\n");
     blkid dir = sfs_find_dir(dirname);
     if(dir != 0)
         return -1;
@@ -220,6 +219,7 @@ int sfs_mkdir(char *dirname)
         while(temp.next_dir != 0){
             sfs_read_block(&temp, temp.next_dir);
         }
+        printf("next: %d\n", bid);
         temp.next_dir = bid;
     }
     else{
