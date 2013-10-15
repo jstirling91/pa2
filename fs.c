@@ -261,7 +261,7 @@ int sfs_rmdir(char *dirname)
     while(temp.next_dir != dir){
         sfs_read_block(&temp, temp.next_dir);
     }
-    printf("dirRead: %s, nextDir: %d\n", TEMP.dir_name, temp.next_dir);
+    printf("dirRead: %s, nextDir: %d\n", temp.dir_name, temp.next_dir);
     temp.next_dir = dirRead.next_dir;
     sfs_free_block(dir);
 	return 0;
