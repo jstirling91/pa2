@@ -71,6 +71,7 @@ static void sfs_free_block(blkid bid)
     bitMask <<= bit_loc;
 	/* TODO unset the bit and flush the freemap */
     freemap[entry_loc] = freemap[entry_loc] ^ bitMask;
+    sfs_flush_freemap();
 }
 
 /* 
@@ -201,7 +202,26 @@ int sfs_mkdir(char *dirname)
 {
 	/* TODO: test if the dir exists */
     blkid dir = sfs_find_dir(dirname);
+    if(blkid != 0)
+        return -1;
 	/* TODO: insert a new dir to the linked list */
+    sfs_dirblock_t dirWrite, temp;
+    blkid bid = sfs_alloc_block();
+    dirWrite.dir_name = dirname;
+    dirWrite.next_dir = 0;
+    sfs_write_block(&dirWrite, bid);
+	/* TODO: start from the sb.first_dir, treverse the linked list */
+    if(sb.first_dir != 0){
+        sfs_read_block(&temp, dir_bid);
+        while(temp.next_dir != 0){
+            sfs_read_block(&temp, dir_bid);
+        }
+        temp.next_dir = bid;
+    }
+    else{
+        sb.first_dir = bid;
+    }
+    
 	return 0;
 }
 
@@ -212,7 +232,11 @@ int sfs_mkdir(char *dirname)
 int sfs_rmdir(char *dirname)
 {
 	/* TODO: check if the dir exists */
+    blkid dir = sfs_find_dir(dirname);
+    if(blkid == 0)
+        return -1;
 	/* TODO: check if no files */
+    
 	/* TODO: go thru the linked list and delete the dir*/
 	return 0;
 }
