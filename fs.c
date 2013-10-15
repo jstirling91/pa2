@@ -204,7 +204,6 @@ sfs_superblock_t *sfs_print_info()
 int sfs_mkdir(char *dirname)
 {
 	/* TODO: test if the dir exists */
-    printf("HERE\n");
     blkid dir = sfs_find_dir(dirname);
     if(dir != 0)
         return -1;
@@ -214,7 +213,6 @@ int sfs_mkdir(char *dirname)
     strcmp(dirWrite.dir_name, dirname);
     dirWrite.next_dir = 0;
     sfs_write_block(&dirWrite, bid);
-    printf("first!!: %d/n", sb.first_dir);
 	/* TODO: start from the sb.first_dir, treverse the linked list */
     if(sb.first_dir != 0){
         sfs_read_block(&temp, sb.first_dir);
@@ -225,7 +223,6 @@ int sfs_mkdir(char *dirname)
     }
     else{
         sb.first_dir = bid;
-        printf("first: %d/n", bid);
     }
     
 	return 0;
