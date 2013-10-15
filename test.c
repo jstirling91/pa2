@@ -46,10 +46,8 @@ static int testcase2(void)
 	/* create and remove directories */
 	sfs_mkdir("root");
 	sfs_mkdir("haha");
-	if (sfs_lsdir() != 2){
-        printf("HERE");
+	if (sfs_lsdir() != 2)
         return 1;
-    }
 	sfs_mkdir("wawa");
 	printf("--------------\n");
 	if (sfs_lsdir() != 3)
