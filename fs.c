@@ -202,10 +202,8 @@ int sfs_mkdir(char *dirname)
 {
 	/* TODO: test if the dir exists */
     blkid dir = sfs_find_dir(dirname);
-    if(dir != 0){
-        printf("HERE\n");
+    if(dir != 0)
         return -1;
-    }
 	/* TODO: insert a new dir to the linked list */
     sfs_dirblock_t dirWrite, temp;
     blkid bid = sfs_alloc_block();
@@ -222,7 +220,7 @@ int sfs_mkdir(char *dirname)
     }
     else{
         sb.first_dir = bid;
-        printf("first: %d/n", sb.first_dir);
+        printf("first: %d/n", bid);
     }
     
 	return 0;
