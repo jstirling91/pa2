@@ -213,7 +213,6 @@ int sfs_mkdir(char *dirname)
     sfs_dirblock_t dirWrite, temp;
     blkid bid = sfs_alloc_block();
     strcpy(dirWrite.dir_name, dirname);
-    printf("dir_name: %s\n", dirWrite.dir_name);
     dirWrite.next_dir = 0;
     sfs_write_block(&dirWrite, bid);
 	/* TODO: start from the sb.first_dir, treverse the linked list */
@@ -249,6 +248,7 @@ int sfs_rmdir(char *dirname)
     if(dir == 0)
         return -1;
 	/* TODO: check if no files */
+    printf("HERE");
     sfs_dirblock_t dirRead, temp;
     sfs_read_block(&dirRead, dir);
     int i;
