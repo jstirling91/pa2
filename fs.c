@@ -44,7 +44,7 @@ static blkid sfs_alloc_block()
             if((freemap[i] & j) == 0){
                 freemap[i] = freemap[i] | j;
                 sfs_flush_freemap();
-                printf("HERE!!!!");
+                printf("blkid %d\n", i*32 + temp);
                 return i*32 + temp;
             }
             else{
