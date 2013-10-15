@@ -218,7 +218,7 @@ int sfs_mkdir(char *dirname)
 	/* TODO: start from the sb.first_dir, treverse the linked list */
     if(sb.first_dir != 0){
         sfs_read_block(&temp, sb.first_dir);
-        int prevBID = sb.first_dir;
+        blkid prevBID = sb.first_dir;
         while(temp.next_dir != 0){
             prevBID = temp.next_dir;
             sfs_read_block(&temp, prevBID);
@@ -258,11 +258,14 @@ int sfs_rmdir(char *dirname)
     }
 	/* TODO: go thru the linked list and delete the dir*/
     sfs_read_block(&temp, sb.first_dir);
+    blkid prevBID = sb.first_dir;
     while(temp.next_dir != dir){
+        prevBID = temp.next_dir;
         sfs_read_block(&temp, temp.next_dir);
     }
     printf("dirRead: %s, nextDir: %d\n", temp.dir_name, temp.next_dir);
     temp.next_dir = dirRead.next_dir;
+    sfs_write_block(&temp, prevBID);
     sfs_free_block(dir);
 	return 0;
 }
