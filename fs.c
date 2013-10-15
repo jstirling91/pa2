@@ -24,7 +24,6 @@ static void sfs_flush_freemap()
 	blkid bid = 1;
 	char *p = (char *)freemap;
 	/* TODO: write freemap block one by one */
-    freemap[0] = 0x3; /* 11b, freemap block and sb used*/
 	sfs_write_block(freemap, 1);
     
 }
@@ -37,7 +36,18 @@ static blkid sfs_alloc_block()
 	u32 size = sb.nfreemap_blocks * BLOCK_SIZE / sizeof(u32);	
 	u32 i, j;
 	/* TODO: find a freemap entry that has a free block */
-	
+    for(i = 0; i < 32; i++){
+        int temp = 0;
+        for(j=0x1; j<0x8000; j <<= 1){
+            if((freemap[i] & j) == 0){
+                freemap = freemap | j;
+                return i*32 + temp;
+            }
+            else{
+                temp++;
+            }
+        }
+    }
 	/* TODO: find out which bit in the entry is zero,
 	   set the bit, flush and return the bid
 	*/
