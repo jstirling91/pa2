@@ -270,17 +270,17 @@ int sfs_lsdir()
     sfs_read_block(&dir, sb.first_dir);
     while(dir.next_dir != 0){
         int ii;
-        for(ii = 0; ii < sizeof(dir.dir_name); ii++){
-            printf("%c", dir.dir_name[ii]);
-        }
-        printf("AA\n");
+//        for(ii = 0; ii < sizeof(dir.dir_name); ii++){
+//            printf("%c", dir.dir_name[ii]);
+//        }
+//        printf("AA\n");
         i++;
         sfs_read_block(&dir, dir.next_dir);
     }
     int ii;
-    for(ii = 0; ii < sizeof(dir.dir_name); ii++){
-        printf("%c", dir.dir_name[ii]);
-    }
+//    for(ii = 0; ii < sizeof(dir.dir_name); ii++){
+//        printf("%c", dir.dir_name[ii]);
+//    }
     printf("HERE\n");
 	return i;
 }
