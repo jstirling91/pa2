@@ -258,6 +258,11 @@ int sfs_rmdir(char *dirname)
     }
 	/* TODO: go thru the linked list and delete the dir*/
     sfs_read_block(&temp, sb.first_dir);
+    if(sb.first_dir == dir){
+        sb.first_dir = temp.next_dir;
+        sfs_free_block(dir);
+        return 0;
+    }
     blkid prevBID = sb.first_dir;
     while(temp.next_dir != dir){
         prevBID = temp.next_dir;
