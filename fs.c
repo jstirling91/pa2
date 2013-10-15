@@ -201,6 +201,7 @@ sfs_superblock_t *sfs_print_info()
 int sfs_mkdir(char *dirname)
 {
 	/* TODO: test if the dir exists */
+    printf("HERE\n");
     blkid dir = sfs_find_dir(dirname);
     if(dir != 0)
         return -1;
