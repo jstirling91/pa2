@@ -236,8 +236,19 @@ int sfs_rmdir(char *dirname)
     if(dir == 0)
         return -1;
 	/* TODO: check if no files */
-    
+    sfs_dirblock_t dirRead, temp;
+    sfs_read_block(&dirRead, dir)
+    for(int i = 0; i < SFS_DB_NINODES; i++){
+        if(dirRead.inodes[i] != 0)
+            return -1
+    }
 	/* TODO: go thru the linked list and delete the dir*/
+    sfs_read_block(&temp, sb.first_dir);
+    while(temp.next_dir != dir){
+        sfs_read_block(&temp, temp.next_dir);
+    }
+    temp.next_dir = dirRead.next_dir;
+    sfs_free_block(dir);
 	return 0;
 }
 
