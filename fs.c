@@ -220,6 +220,7 @@ int sfs_mkdir(char *dirname)
     }
     else{
         sb.first_dir = bid;
+        printf("%d", sb.first_dir);
     }
     
 	return 0;
