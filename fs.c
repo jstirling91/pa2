@@ -212,9 +212,9 @@ int sfs_mkdir(char *dirname)
     sfs_write_block(&dirWrite, bid);
 	/* TODO: start from the sb.first_dir, treverse the linked list */
     if(sb.first_dir != 0){
-        sfs_read_block(&temp, dir_bid);
+        sfs_read_block(&temp, sb.first_dir);
         while(temp.next_dir != 0){
-            sfs_read_block(&temp, dir_bid);
+            sfs_read_block(&temp, temp.next_dir);
         }
         temp.next_dir = bid;
     }
