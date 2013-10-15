@@ -252,8 +252,8 @@ int sfs_rmdir(char *dirname)
     sfs_read_block(&dirRead, dir);
     int i;
     for(i = 0; i < SFS_DB_NINODES; i++){
-        if(dirRead.inodes[i] == NULL){
-            printf("HERE!!\n");
+        if(dirRead.inodes[i] != 0){
+            printf("HERE %d, %d\n", i, dirRead.inodes[i]);
             return -1;
         }
     }
