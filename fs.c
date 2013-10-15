@@ -272,7 +272,7 @@ int sfs_lsdir()
     int i = 1;
     sfs_dirblock_t dir;
     sfs_read_block(&dir, sb.first_dir);
-    
+    printf("next_dir: %d", dir.next_dir);
     while(dir.next_dir != 0){
         int ii;
 //        printf("IN LOOP");
