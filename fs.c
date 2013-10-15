@@ -213,7 +213,7 @@ int sfs_mkdir(char *dirname)
     sfs_dirblock_t dirWrite, temp;
     blkid bid = sfs_alloc_block();
     memcmp(dirWrite.dir_name, dirname, sizeof(dirname));
-    printf("dir_name: %s\n", dirWrite.dir_name);
+    printf("dir_name: %d\n", sizeof(dirname));
     dirWrite.next_dir = 0;
     sfs_write_block(&dirWrite, bid);
 	/* TODO: start from the sb.first_dir, treverse the linked list */
