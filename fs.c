@@ -204,6 +204,7 @@ sfs_superblock_t *sfs_print_info()
 int sfs_mkdir(char *dirname)
 {
 	/* TODO: test if the dir exists */
+    printf("HERE\n");
     blkid dir = sfs_find_dir(dirname);
     if(dir != 0)
         return -1;
@@ -270,7 +271,7 @@ int sfs_lsdir()
     sfs_read_block(&dir, sb.first_dir);
     while(dir.next_dir != 0){
         int ii;
-        printf("IN LOOP");
+//        printf("IN LOOP");
 //        for(ii = 0; ii < sizeof(dir.dir_name); ii++){
 //            printf("%c", dir.dir_name[ii]);
 //        }
@@ -282,7 +283,7 @@ int sfs_lsdir()
 //    for(ii = 0; ii < sizeof(dir.dir_name); ii++){
 //        printf("%c", dir.dir_name[ii]);
 //    }
-    printf("HERE: %d\n", i);
+//    printf("HERE: %d\n", i);
 	return i;
 }
 
