@@ -219,12 +219,13 @@ int sfs_mkdir(char *dirname)
         while(temp.next_dir != 0){
             sfs_read_block(&temp, temp.next_dir);
         }
-        printf("next: %d\n", bid);
+        
         temp.next_dir = bid;
     }
     else{
         sb.first_dir = bid;
     }
+    printf("next: %d\n", next_dir);
     
 	return 0;
 }
@@ -269,6 +270,7 @@ int sfs_lsdir()
     int i = 1;
     sfs_dirblock_t dir;
     sfs_read_block(&dir, sb.first_dir);
+    
     while(dir.next_dir != 0){
         int ii;
 //        printf("IN LOOP");
