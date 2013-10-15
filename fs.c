@@ -221,11 +221,11 @@ int sfs_mkdir(char *dirname)
         }
         
         temp.next_dir = bid;
-        printf("next: %d name:%s\n", temp.next_dir, dirname);
+        printf("next: %d name:%s\n", temp.next_dir, dirWrite.dir_name);
     }
     else{
         sb.first_dir = bid;
-        printf("first: %d name:%s\n", sb.first_dir, dirname);
+        printf("first: %d name:%s\n", sb.first_dir, dirWrite.dir_name);
     }
     
     
