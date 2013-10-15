@@ -252,11 +252,12 @@ int sfs_rmdir(char *dirname)
     sfs_read_block(&dirRead, dir);
     int i;
     for(i = 0; i < SFS_DB_NINODES; i++){
-        if(dirRead.inodes[i] != 0)
+        if(dirRead.inodes[i] != 0){
+            printf("HERE\n");
             return -1;
+        }
     }
 	/* TODO: go thru the linked list and delete the dir*/
-    printf("HERE\n");
     sfs_read_block(&temp, sb.first_dir);
     while(temp.next_dir != dir){
         sfs_read_block(&temp, temp.next_dir);
