@@ -202,8 +202,10 @@ int sfs_mkdir(char *dirname)
 {
 	/* TODO: test if the dir exists */
     blkid dir = sfs_find_dir(dirname);
-    if(dir != 0)
+    if(dir != 0){
+        printf("HERE\n");
         return -1;
+    }
 	/* TODO: insert a new dir to the linked list */
     sfs_dirblock_t dirWrite, temp;
     blkid bid = sfs_alloc_block();
