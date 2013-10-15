@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*TODO: Fix the saving of the dirname in mkdir() */
+
 /* constant of how many bits in one freemap entry */
 #define SFS_NBITS_IN_FREEMAP_ENTRY (sizeof(u32)*8)
 
@@ -46,7 +48,7 @@ static blkid sfs_alloc_block()
             if((freemap[i] & j) == 0){
                 freemap[i] = freemap[i] | j;
                 sfs_flush_freemap();
-                printf("blkid %d\n", i*32 + temp);
+//                printf("blkid %d\n", i*32 + temp);
                 return i*32 + temp;
             }
             else{
@@ -224,11 +226,11 @@ int sfs_mkdir(char *dirname)
         
         temp.next_dir = bid;
         sfs_write_block(&temp, prevBID);
-        printf("next: %d name:%s\n", temp.next_dir, dirWrite.dir_name);
+//        printf("next: %d name:%s\n", temp.next_dir, dirWrite.dir_name);
     }
     else{
         sb.first_dir = bid;
-        printf("first: %d name:%s\n", sb.first_dir, dirWrite.dir_name);
+//        printf("first: %d name:%s\n", sb.first_dir, dirWrite.dir_name);
     }
     
     
@@ -275,7 +277,7 @@ int sfs_lsdir()
     int i = 1;
     sfs_dirblock_t dir;
     sfs_read_block(&dir, sb.first_dir);
-    printf("next_dir: %d", dir.next_dir);
+//    printf("next_dir: %d", dir.next_dir);
     while(dir.next_dir != 0){
         int ii;
 //        printf("IN LOOP");
