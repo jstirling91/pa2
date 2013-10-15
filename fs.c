@@ -212,7 +212,7 @@ int sfs_mkdir(char *dirname)
 	/* TODO: insert a new dir to the linked list */
     sfs_dirblock_t dirWrite, temp;
     blkid bid = sfs_alloc_block();
-    memcmp(dirWrite.dir_name, dirname, sizeof(dirname));
+    memcpy(dirWrite.dir_name, dirname, sizeof(dirname));
     printf("dir_name: %d\n", sizeof(dirname));
     dirWrite.next_dir = 0;
     sfs_write_block(&dirWrite, bid);
