@@ -70,7 +70,7 @@ static void sfs_free_block(blkid bid)
     u32 bitMask = 0x1;
     bitMask <<= bit_loc;
 	/* TODO unset the bit and flush the freemap */
-    freemap[entry_loc] = freemap[entry_loc] ^ bit;
+    freemap[entry_loc] = freemap[entry_loc] ^ bitMask;
 }
 
 /* 
