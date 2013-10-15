@@ -230,7 +230,7 @@ int sfs_mkdir(char *dirname)
     }
     else{
         sb.first_dir = bid;
-//        printf("first: %d name:%s\n", sb.first_dir, dirWrite.dir_name);
+        printf("first: %d name:%s inodes1:\n", sb.first_dir, dirWrite.dir_name, dirWrite.inodes[0]);
     }
     
     
