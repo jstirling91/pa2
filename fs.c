@@ -266,11 +266,17 @@ int sfs_lsdir()
     sfs_dirblock_t dir;
     sfs_read_block(&dir, sb.first_dir);
     while(dir.next_dir != 0){
-        printf("%s\n", dir.dir_name);
+        int ii;
+        for(ii = 0; ii < sizeof(dir.dir_name); ii++){
+            printf("%c", dir.dir_name[ii]);
+        }
         i++;
         sfs_read_block(&dir, dir.next_dir);
     }
-    printf("%s\n", dir.dir_name);
+    int ii;
+    for(ii = 0; ii < sizeof(dir.dir_name); ii++){
+        printf("%c", dir.dir_name[ii]);
+    }
     
 	return i;
 }
