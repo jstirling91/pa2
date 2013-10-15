@@ -281,7 +281,7 @@ int sfs_lsdir()
     for(ii = 0; ii < sizeof(dir.dir_name); ii++){
         printf("%c", dir.dir_name[ii]);
     }
-    printf("AA\n");
+    printf("HERE\n");
 	return i;
 }
 
