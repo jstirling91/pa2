@@ -210,7 +210,7 @@ int sfs_mkdir(char *dirname)
 	/* TODO: insert a new dir to the linked list */
     sfs_dirblock_t dirWrite, temp;
     blkid bid = sfs_alloc_block();
-    strcmp(dirWrite.dir_name, dirname);
+    memcmp(dirWrite.dir_name, dirname, sizeof(dirname));
     dirWrite.next_dir = 0;
     sfs_write_block(&dirWrite, bid);
 	/* TODO: start from the sb.first_dir, treverse the linked list */
