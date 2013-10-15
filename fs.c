@@ -202,7 +202,7 @@ int sfs_mkdir(char *dirname)
 {
 	/* TODO: test if the dir exists */
     blkid dir = sfs_find_dir(dirname);
-    if(blkid != 0)
+    if(dir != 0)
         return -1;
 	/* TODO: insert a new dir to the linked list */
     sfs_dirblock_t dirWrite, temp;
@@ -233,7 +233,7 @@ int sfs_rmdir(char *dirname)
 {
 	/* TODO: check if the dir exists */
     blkid dir = sfs_find_dir(dirname);
-    if(blkid == 0)
+    if(dir == 0)
         return -1;
 	/* TODO: check if no files */
     
