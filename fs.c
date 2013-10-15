@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*TODO: Fix the saving of the dirname in mkdir() */
+/* TODO: FIX: check if no files */
 
 /* constant of how many bits in one freemap entry */
 #define SFS_NBITS_IN_FREEMAP_ENTRY (sizeof(u32)*8)
@@ -253,7 +253,6 @@ int sfs_rmdir(char *dirname)
     int i;
     for(i = 0; i < SFS_DB_NINODES; i++){
         if(dirRead.inodes[i] < 0){
-            printf("HERE %d, %d\n", i, dirRead.inodes[i]);
             return -1;
         }
     }
@@ -263,6 +262,7 @@ int sfs_rmdir(char *dirname)
         sfs_read_block(&temp, temp.next_dir);
     }
     temp.next_dir = dirRead.next_dir;
+    printf("dirRead: %s, nextDir: %d\n", dirRead.dir_name, dirRead.next_dir);
     sfs_free_block(dir);
 	return 0;
 }
