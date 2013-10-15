@@ -119,12 +119,12 @@ static blkid sfs_find_dir(char *dirname)
     if(sb.first_dir != 0){
         dir_bid = sb.first_dir;
         sfs_read_block(&dir, dir_bid);
-        if(dirname.compair(dir.dir_name))
+        if(strcmp(dirname, dir.dir_name) == 0)
             return dir_bid;
         while(dir.next_dir != 0){
             dir_bid = dir.next_dir;
             sfs_read_block(&dir, dir_bid);
-            if(dirname.compair(dir.dir_name))
+            if(strcmp(dirname, dir.dir_name) == 0)
                 return dir_bid;
         }
     }
@@ -182,7 +182,7 @@ sfs_superblock_t *sfs_print_info()
 int sfs_mkdir(char *dirname)
 {
 	/* TODO: test if the dir exists */
-    blkid dir = sfs_find_dir(dirname)
+    blkid dir = sfs_find_dir(dirname);
 	/* TODO: insert a new dir to the linked list */
 	return 0;
 }
