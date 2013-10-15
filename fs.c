@@ -65,7 +65,12 @@ static void sfs_free_block(blkid bid)
 	/* TODO find the entry and bit that correspond to the block */
 	int entry_loc;
 	int bit_loc;
+    entry_loc = bid/32;
+    bit_loc = bid%32;
+    u32 bitMask = 0x1
+    bitMask <<= bit_loc;
 	/* TODO unset the bit and flush the freemap */
+    freemap[entry_loc] = freemap[entry_loc] ^ bit;
 }
 
 /* 
