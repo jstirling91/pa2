@@ -210,6 +210,7 @@ int sfs_mkdir(char *dirname)
     strcmp(dirWrite.dir_name, dirname);
     dirWrite.next_dir = 0;
     sfs_write_block(&dirWrite, bid);
+    printf("first!!: %d/n", sb.first_dir);
 	/* TODO: start from the sb.first_dir, treverse the linked list */
     if(sb.first_dir != 0){
         sfs_read_block(&temp, sb.first_dir);
