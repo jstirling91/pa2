@@ -248,7 +248,6 @@ int sfs_rmdir(char *dirname)
     if(dir == 0)
         return -1;
 	/* TODO: check if no files */
-    printf("HERE");
     sfs_dirblock_t dirRead, temp;
     sfs_read_block(&dirRead, dir);
     int i;
@@ -259,6 +258,7 @@ int sfs_rmdir(char *dirname)
 	/* TODO: go thru the linked list and delete the dir*/
     sfs_read_block(&temp, sb.first_dir);
     while(temp.next_dir != dir){
+        printf("HERE\n");
         sfs_read_block(&temp, temp.next_dir);
     }
     temp.next_dir = dirRead.next_dir;
