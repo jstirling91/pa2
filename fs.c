@@ -365,6 +365,13 @@ int sfs_open(char *dirname, char *name)
     sfs_write_block(&inode, inode_bid);
     dir.inodes[free] = inode_bid;
     sfs_write_block(&dir, dir_bid);
+    
+    fdtable[free].inode = inode;
+    fdtable[free].inode_bid = inode_bid;
+    fdtable[free].dir_bid = dir_bid;
+    fdtable[free].cur = 0;
+    fdtable[free].valid = 1;
+    
 	return free;
 }
 
