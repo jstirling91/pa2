@@ -342,14 +342,14 @@ int sfs_open(char *dirname, char *name)
         if(inode_bid > 2){
             printf("HERE");
             sfs_read_block(&inode, inode_bid);
-//            if(strcmp(name, (*inode).file_name)){
-//                fdtable[fd].inode = *inode;
-//                fdtable[fd].inode_bid = inode_bid;
-//                fdtable[fd].dir_bid = dir_bid;
-//                fdtable[fd].cur = 0;
-//                fdtable[fd].valid = 1;
-//                return fd;
-//            }
+            if(strcmp(name, inode.file_name) == 0){
+                fdtable[fd].inode = inode;
+                fdtable[fd].inode_bid = inode_bid;
+                fdtable[fd].dir_bid = dir_bid;
+                fdtable[fd].cur = 0;
+                fdtable[fd].valid = 1;
+                return fd;
+            }
         }
         else if(free == -1){
             free = i;
@@ -360,12 +360,10 @@ int sfs_open(char *dirname, char *name)
     
 	/* TODO: create a new file */
     inode_bid = sfs_alloc_block();
-    sfs_inode_t new_inode;
-    
-    new_inode.size = 0;
-    new_inode.first_frame = -1;
-    strcpy(new_inode.file_name, name);
-    sfs_write_block(&new_inode, inode_bid);
+    inode.size = 0;
+    inode.first_frame = -1;
+    strcpy(inode.file_name, name);
+    sfs_write_block(&inode, inode_bid);
     dir.inodes[free] = inode_bid;
     sfs_write_block(&dir, dir_bid);
 	return fd;
