@@ -332,7 +332,7 @@ int sfs_open(char *dirname, char *name)
     dir_bid = sfs_find_dir(dirname);
     if(dir_bid == 0)
         return -1;
-    sfs_read_block(&dir, dir_bid)
+    sfs_read_block(&dir, dir_bid);
 
 	/* TODO: traverse the inodes to see if the file exists.
 	   If it exists, load its inode. Otherwise, create a new file.
