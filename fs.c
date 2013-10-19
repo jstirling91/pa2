@@ -50,7 +50,6 @@ static blkid sfs_alloc_block()
             if((freemap[i] & j) == 0){
                 freemap[i] = freemap[i] | j;
                 sfs_flush_freemap();
-//                printf("blkid %d\n", i*32 + temp);
                 return i*32 + temp;
             }
             else{
@@ -228,11 +227,9 @@ int sfs_mkdir(char *dirname)
         
         temp.next_dir = bid;
         sfs_write_block(&temp, prevBID);
-//        printf("next: %d name:%s\n", temp.next_dir, dirWrite.dir_name);
     }
     else{
         sb.first_dir = bid;
-        printf("first: %d name:%s inodes1:\n", sb.first_dir, dirWrite.dir_name, dirWrite.inodes[0]);
     }
     
     
@@ -270,7 +267,6 @@ int sfs_rmdir(char *dirname)
         prevBID = temp.next_dir;
         sfs_read_block(&temp, temp.next_dir);
     }
-    printf("dirRead: %s, nextDir: %d\n", temp.dir_name, temp.next_dir);
     temp.next_dir = dirRead.next_dir;
     sfs_write_block(&temp, prevBID);
     sfs_free_block(dir);
@@ -289,7 +285,6 @@ int sfs_lsdir()
     int i = 1;
     sfs_dirblock_t dir;
     sfs_read_block(&dir, sb.first_dir);
-//    printf("next_dir: %d", dir.next_dir);
     while(dir.next_dir != 0){
         int ii;
 //        printf("IN LOOP");
@@ -402,6 +397,7 @@ int sfs_remove(int fd)
 int sfs_ls()
 {
 	/* TODO: nested loop: traverse all dirs and all containing files*/
+    printf("HERE\n");
     int dir_bid = sb.first_dir;
     if(dir_bid == 0)
         return 0;
