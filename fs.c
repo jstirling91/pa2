@@ -341,7 +341,7 @@ int sfs_open(char *dirname, char *name)
     for(i = 0; i < SFS_DB_NINODES; i++){
         if(inode_bid = dir.inodes[i] > 2){
             sfs_read_block(inode, inode_bid);
-            if(strcmp(name, &inode.file_name)){
+            if(strcmp(name, inode.file_name)){
                 fdtable[fd].inode = &inode;
                 fdtable[fd].inode_bid = inode_bid;
                 fdtable[fd].dir_bid = dir_bid;
@@ -359,9 +359,9 @@ int sfs_open(char *dirname, char *name)
     
 	/* TODO: create a new file */
     inode_bid = sfs_alloc_block();
-    &inode.size = 0;
-    &inode.first_frame = -1;
-    &inode.file_name = name;
+    inode.size = 0;
+    inode.first_frame = -1;
+    inode.file_name = name;
     sfs_write_block(inode, inode_bid);
     dir.inodes[free] = &inode;
     sfs_write_block(&dir, dir_bid);
