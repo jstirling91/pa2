@@ -364,7 +364,6 @@ int sfs_open(char *dirname, char *name)
     strcpy(inode.file_name, name);
     sfs_write_block(&inode, inode_bid);
     dir.inodes[free] = inode_bid;
-    printf("free: %d\n", free);
     sfs_write_block(&dir, dir_bid);
 	return free;
 }
@@ -394,7 +393,8 @@ int sfs_remove(int fd)
     printf("HEREeee: %d\n", fd);
     for(i = 0; i < SFS_DB_NINODES; i++){
         blkid inode_bid = dir.inodes[i];
-        if(inode_bid = fdtable[fd].inode_bid){
+//        printf("hhhhhh: %d\n", )
+        if(inode_bid == fdtable[fd].inode_bid){
             printf("HERE: %d\n", i);
             dir.inodes[i] = 0;
             sfs_write_block(&dir, fdtable[fd].dir_bid);
