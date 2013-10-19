@@ -290,20 +290,9 @@ int sfs_lsdir()
     sfs_dirblock_t dir;
     sfs_read_block(&dir, sb.first_dir);
     while(dir.next_dir != 0){
-        int ii;
-//        printf("IN LOOP");
-//        for(ii = 0; ii < sizeof(dir.dir_name); ii++){
-//            printf("%c", dir.dir_name[ii]);
-//        }
-//        printf("AA\n");
         i++;
         sfs_read_block(&dir, dir.next_dir);
     }
-    int ii;
-//    for(ii = 0; ii < sizeof(dir.dir_name); ii++){
-//        printf("%c", dir.dir_name[ii]);
-//    }
-//    printf("HERE: %d\n", i);
 	return i;
 }
 
@@ -360,7 +349,7 @@ int sfs_open(char *dirname, char *name)
 	/* TODO: create a new file */
     inode_bid = sfs_alloc_block();
     inode.size = 0;
-    inode.first_frame = -1;
+    inode.first_frame = 0;
     strcpy(inode.file_name, name);
     sfs_write_block(&inode, inode_bid);
     dir.inodes[free] = inode_bid;
@@ -381,6 +370,7 @@ int sfs_open(char *dirname, char *name)
 int sfs_close(int fd)
 {
 	/* TODO: mark the valid field */
+    fdtable[fd].valid = 0;
 	return 0;
 }
 
@@ -408,7 +398,18 @@ int sfs_remove(int fd)
     
 
 	/* TODO: free inode and all its frames */
-
+    sfs_free_block(fdtable[fd]);
+    blkid frame_bid = fdtable[fd].inode.first_frame;
+    if(frame_bid != 0){
+        sfs_inode_frame_t frame;
+        do {
+            sfs_free_block(frame_bid);
+            sfs_read_block(&frame, fr);
+            frame_bid = frame.next;
+        } while (frame_bid != 0);
+    }
+    
+    
 	/* TODO: close the file */
 	return 0;
 }
