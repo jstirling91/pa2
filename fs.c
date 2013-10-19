@@ -417,7 +417,7 @@ int sfs_ls()
             if(inode_bid = dir.inodes[i] > 2){
                 sfs_read_block(&inode, inode_bid);
                 printf("\t%s\n", inode.file_name);
-                file++;
+                files++;
             }
         }
         
