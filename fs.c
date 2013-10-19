@@ -321,7 +321,6 @@ int sfs_open(char *dirname, char *name)
 	int i;
 
 	/* TODO: find a free fd number */
-    inode.file_name;
     for(i = 0; i < SFS_MAX_OPENED_FILES; i++){
         if(fdtable[i].valid == 0){
             fd = i;
@@ -342,8 +341,7 @@ int sfs_open(char *dirname, char *name)
     for(i = 0; i < SFS_DB_NINODES; i++){
         if(inode_bid = dir.inodes[i] > 2){
             sfs_read_block(inode, inode_bid);
-            char *temp = &inode.file_name;
-            if(strcmp(name, temp)){
+            if(strcmp(name, (*inode).file_name)){
                 fdtable[fd].inode = &inode;
                 fdtable[fd].inode_bid = inode_bid;
                 fdtable[fd].dir_bid = dir_bid;
