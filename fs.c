@@ -321,6 +321,7 @@ int sfs_open(char *dirname, char *name)
 	int i;
 
 	/* TODO: find a free fd number */
+    inode.file_name;
     for(i = 0; i < SFS_MAX_OPENED_FILES; i++){
         if(fdtable[i].valid == 0){
             fd = i;
