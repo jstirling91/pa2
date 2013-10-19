@@ -217,7 +217,7 @@ int sfs_mkdir(char *dirname)
     dirWrite.next_dir = 0;
     int i;
     for(i = 0; i < SFS_DB_NINODES; i++){
-        dirWrite.inode[i] = 0;
+        dirWrite.inodes[i] = 0;
     }
     sfs_write_block(&dirWrite, bid);
 	/* TODO: start from the sb.first_dir, treverse the linked list */
