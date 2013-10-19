@@ -340,7 +340,6 @@ int sfs_open(char *dirname, char *name)
         inode_bid = dir.inodes[i];
 //        printf("%d\n", inode_bid);
         if(inode_bid > 2){
-            printf("HERE");
             sfs_read_block(&inode, inode_bid);
             if(strcmp(name, inode.file_name) == 0){
                 fdtable[fd].inode = inode;
@@ -391,6 +390,7 @@ int sfs_remove(int fd)
 
 	/* TODO: update dir */
     sfs_read_block(&dir, fdtable[fd].dir_bid);
+    printf("HEREeee\n");
     for(i = 0; i < SFS_DB_NINODES; i++){
         blkid inode_bid = dir.inodes[i];
         if(inode_bid = fdtable[fd].inode_bid){
