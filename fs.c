@@ -404,7 +404,7 @@ int sfs_remove(int fd)
         sfs_inode_frame_t frame;
         do {
             sfs_free_block(frame_bid);
-            sfs_read_block(&frame, fr);
+            sfs_read_block(&frame, frame_bid);
             frame_bid = frame.next;
         } while (frame_bid != 0);
     }
