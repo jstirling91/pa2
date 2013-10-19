@@ -335,6 +335,7 @@ int sfs_open(char *dirname, char *name)
     for(i = 0; i < SFS_DB_NINODES; i++){
         printf("\t\t%d\n", i);
         inode_bid = dir.inodes[i];
+        printf("HEHHHEHEHEHHHE\n");
         if(inode_bid > 2){
             sfs_read_block(inode, inode_bid);
             printf("\t\t%d\n", inode_bid);
