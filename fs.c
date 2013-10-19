@@ -363,7 +363,7 @@ int sfs_open(char *dirname, char *name)
     (*inode).first_frame = -1;
     strcpy((*inode).file_name, name);
     sfs_write_block(inode, inode_bid);
-    dir.inodes[free] = *inode;
+    dir.inodes[free] = inode_bid;
     sfs_write_block(&dir, dir_bid);
 	return fd;
 }
