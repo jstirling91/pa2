@@ -322,7 +322,6 @@ int sfs_open(char *dirname, char *name)
             break;
         }
     }
-	printf("HERE\n");
 	/* TODO: find the dir first */
     dir_bid = sfs_find_dir(dirname);
     if(dir_bid == 0)
@@ -349,6 +348,7 @@ int sfs_open(char *dirname, char *name)
             free = i;
         }
     }
+    printf("HERE\n");
     if(free == -1)
         return -1;
     
