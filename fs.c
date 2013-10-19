@@ -255,7 +255,7 @@ int sfs_rmdir(char *dirname)
     sfs_read_block(&dirRead, dir);
     int i;
     for(i = 0; i < SFS_DB_NINODES; i++){
-        if(dirRead.inodes[i] == 0){
+        if(dirRead.inodes[i] > 0){
             return -1;
         }
     }
