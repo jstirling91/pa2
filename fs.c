@@ -394,6 +394,7 @@ int sfs_remove(int fd)
     for(i = 0; i < SFS_DB_NINODES; i++){
         blkid inode_bid = dir.inodes[i];
         if(inode_bid = fdtable[fd].inode_bid){
+            printf("HERE: %d\n", i);
             dir.inodes[i] = 0;
             sfs_write_block(&dir, fdtable[fd].dir_bid);
             break;
