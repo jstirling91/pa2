@@ -5,7 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* TODO: FIX: check if no files */
+/* TODO:    FIX: check if no files */
+/*          ?: does the dir need to be made in sfs_open() if the */
+/*             dirname is not found */
 
 /* constant of how many bits in one freemap entry */
 #define SFS_NBITS_IN_FREEMAP_ENTRY (sizeof(u32)*8)
@@ -252,7 +254,7 @@ int sfs_rmdir(char *dirname)
     sfs_read_block(&dirRead, dir);
     int i;
     for(i = 0; i < SFS_DB_NINODES; i++){
-        if(dirRead.inodes[i] < 0){
+        if(dirRead.inodes[i].size == 0){
             return -1;
         }
     }
@@ -319,12 +321,23 @@ int sfs_open(char *dirname, char *name)
 	int i;
 
 	/* TODO: find a free fd number */
+    for(i = 0; i < SFS_MAX_OPENED_FILES; i++){
+        if(fdtable[i].valid == 0){
+            fd = i;
+            break;
+        }
+    }
 	
 	/* TODO: find the dir first */
+    dir_bid = sfs_find_dir(dirname);
+    if(dir_bid == 0)
+        return -1;
+    sfs_read_block(&dir, dir_bid)
 
 	/* TODO: traverse the inodes to see if the file exists.
 	   If it exists, load its inode. Otherwise, create a new file.
 	*/
+    
 
 	/* TODO: create a new file */
 	return fd;
