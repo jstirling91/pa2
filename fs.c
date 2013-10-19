@@ -415,8 +415,8 @@ int sfs_ls()
         int i;
         for(i = 0; i < SFS_DB_NINODES; i++){
             sfs_inode_t inode;
-            blkid inode_bid;
-            if(inode_bid = dir.inodes[i] > 2){
+            blkid inode_bid = dir.inodes[i];
+            if(inode_bid > 2){
                 sfs_read_block(&inode, inode_bid);
                 printf("\t%s\n", inode.file_name);
                 files++;
