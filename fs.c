@@ -337,6 +337,7 @@ int sfs_open(char *dirname, char *name)
         inode_bid = dir.inodes[i];
         printf("\t%d\n", inode_bid);
         if(inode_bid > 2){
+            printf("HERE   k\n");
             sfs_read_block(inode, inode_bid);
             printf("\t\t%d\n", inode_bid);
             if(strcmp(name, (*inode).file_name)){
@@ -348,7 +349,7 @@ int sfs_open(char *dirname, char *name)
                 return fd;
             }
         }
-        printf("HERE   k\n");
+        
         if(free == -1){
             free = i;
             printf("HERE   k\n");
