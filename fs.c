@@ -338,7 +338,9 @@ int sfs_open(char *dirname, char *name)
     int free = -1;
     for(i = 0; i < SFS_DB_NINODES; i++){
         inode_bid = dir.inodes[i];
-        if(inode_bid >= 2){
+        printf("%d\n", inode_bid);
+        if(inode_bid > 2){
+            printf("HERE");
             sfs_read_block(inode, inode_bid);
             if(strcmp(name, (*inode).file_name)){
                 fdtable[fd].inode = *inode;
