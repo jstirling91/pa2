@@ -322,7 +322,7 @@ int sfs_open(char *dirname, char *name)
             break;
         }
     }
-	
+	printf("HERE\n");
 	/* TODO: find the dir first */
     dir_bid = sfs_find_dir(dirname);
     if(dir_bid == 0)
@@ -397,7 +397,6 @@ int sfs_remove(int fd)
 int sfs_ls()
 {
 	/* TODO: nested loop: traverse all dirs and all containing files*/
-    printf("HERE\n");
     int dir_bid = sb.first_dir;
     if(dir_bid == 0)
         return 0;
