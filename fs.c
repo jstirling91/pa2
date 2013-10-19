@@ -399,7 +399,7 @@ int sfs_remove(int fd)
 
 	/* TODO: free inode and all its frames */
     sfs_free_block(fdtable[fd].inode_bid);
-    blkid frame_bid = fdtable[fd].inode.first_frame;
+    frame_bid = fdtable[fd].inode.first_frame;
     if(frame_bid != 0){
         sfs_inode_frame_t frame;
         do {
