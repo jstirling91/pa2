@@ -356,7 +356,7 @@ int sfs_open(char *dirname, char *name)
     }
     if(free == -1)
         return -1;
-    
+    printf("HERE\n");
 	/* TODO: create a new file */
     inode_bid = sfs_alloc_block();
     (*inode).size = 0;
@@ -365,7 +365,6 @@ int sfs_open(char *dirname, char *name)
     sfs_write_block(inode, inode_bid);
     dir.inodes[free] = inode_bid;
     sfs_write_block(&dir, dir_bid);
-    printf("HERE\n");
 	return fd;
 }
 
