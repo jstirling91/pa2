@@ -390,6 +390,16 @@ int sfs_remove(int fd)
 	int i;
 
 	/* TODO: update dir */
+    sfs_read_block(&dir, fdtable[fd].dir_bid);
+    for(i = 0; i < SFS_DB_NINODES; i++){
+        blkid inode_bid = dir.inodes[i];
+        if(inode_bid = fdtable[fd].inode_bid){
+            dir.inodes[i] = 0;
+            sfs_write_block(&dir, fdtable[fd].dir_bid);
+            break;
+        }
+    }
+    
 
 	/* TODO: free inode and all its frames */
 
