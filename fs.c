@@ -337,13 +337,9 @@ int sfs_open(char *dirname, char *name)
 	*/
     int free = -1;
     for(i = 0; i < SFS_DB_NINODES; i++){
-        printf("\t%d\n", i);
         inode_bid = dir.inodes[i];
-        printf("\t%d\n", inode_bid);
         if(inode_bid > 2){
-            printf("HERE   k\n");
             sfs_read_block(inode, inode_bid);
-            printf("\t\t%d\n", inode_bid);
             if(strcmp(name, (*inode).file_name)){
                 fdtable[fd].inode = *inode;
                 fdtable[fd].inode_bid = inode_bid;
@@ -353,13 +349,11 @@ int sfs_open(char *dirname, char *name)
                 return fd;
             }
         }
-        
-        if(free == -1){
+        else if(free == -1){
             free = i;
             printf("HERE   k\n");
         }
     }
-    printf("HERE\n");
     if(free == -1)
         return -1;
     
@@ -371,6 +365,7 @@ int sfs_open(char *dirname, char *name)
     sfs_write_block(inode, inode_bid);
     dir.inodes[free] = inode_bid;
     sfs_write_block(&dir, dir_bid);
+    printf("HERE\n");
 	return fd;
 }
 
