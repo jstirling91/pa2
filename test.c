@@ -73,12 +73,12 @@ static int testcase3(void)
 	if (sfs_ls() != 1) {
 		return 1;
 	}
-    printf("--------------\n");
 	fd2 = sfs_open("root","file1-1");
 	fd3 = sfs_open("root","file1-2");
 	if (sfs_ls() != 3) {
 		return 1;
 	}
+    printf("--------------\n");
 	sfs_remove(fd2);
 	sfs_remove(fd);
 	if (sfs_ls() != 1) {
