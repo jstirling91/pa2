@@ -402,7 +402,26 @@ int sfs_remove(int fd)
 int sfs_ls()
 {
 	/* TODO: nested loop: traverse all dirs and all containing files*/
-	return 0;
+    int dir_bid = sb.first_dir;
+    if(dir_bid == 0)
+        return 0;
+    sfs_dirblock_t dir;
+    int files = 0;
+    sfs_read_block(&dir, dir_bid);
+    do {
+        printf("%s\n", dir.dir_name);
+        int i;
+        for(i = 0; i < SFS_DB_NINODES; i++){
+            sfs_inode_t inode;
+            if(inode_bid = dir.inodes[i] > 2){
+                sfs_read_block(&inode, inode_bid);
+                printf("\t%s\n", inode.file_name);
+                file++;
+            }
+        }
+        
+    } while (dir.next_dir != 0);
+	return files;
 }
 
 /*
