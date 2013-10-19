@@ -348,6 +348,7 @@ int sfs_open(char *dirname, char *name)
         }
         else if(free == -1){
             free = i;
+            printf("HERE   k\n");
         }
     }
     printf("HERE\n");
