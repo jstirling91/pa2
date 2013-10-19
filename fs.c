@@ -339,17 +339,17 @@ int sfs_open(char *dirname, char *name)
     for(i = 0; i < SFS_DB_NINODES; i++){
         inode_bid = dir.inodes[i];
 //        printf("%d\n", inode_bid);
-        if(inode_bid > 0x2){
+        if(inode_bid > 2){
             printf("HERE");
-            sfs_read_block(inode, inode_bid);
-            if(strcmp(name, (*inode).file_name)){
-                fdtable[fd].inode = *inode;
-                fdtable[fd].inode_bid = inode_bid;
-                fdtable[fd].dir_bid = dir_bid;
-                fdtable[fd].cur = 0;
-                fdtable[fd].valid = 1;
-                return fd;
-            }
+//            sfs_read_block(inode, inode_bid);
+//            if(strcmp(name, (*inode).file_name)){
+//                fdtable[fd].inode = *inode;
+//                fdtable[fd].inode_bid = inode_bid;
+//                fdtable[fd].dir_bid = dir_bid;
+//                fdtable[fd].cur = 0;
+//                fdtable[fd].valid = 1;
+//                return fd;
+//            }
         }
         else if(free == -1){
             free = i;
