@@ -314,7 +314,7 @@ int sfs_lsdir()
 int sfs_open(char *dirname, char *name)
 {
 	blkid dir_bid = 0, inode_bid = 0;
-	sfs_inode_t *inode;
+	sfs_inode_t inode;
 	sfs_dirblock_t dir;
 	int fd;
 	int i;
@@ -341,7 +341,7 @@ int sfs_open(char *dirname, char *name)
 //        printf("%d\n", inode_bid);
         if(inode_bid > 2){
             printf("HERE");
-            sfs_read_block(inode, inode_bid);
+            sfs_read_block(&inode, inode_bid);
 //            if(strcmp(name, (*inode).file_name)){
 //                fdtable[fd].inode = *inode;
 //                fdtable[fd].inode_bid = inode_bid;
