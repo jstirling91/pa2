@@ -390,7 +390,7 @@ int sfs_remove(int fd)
 
 	/* TODO: update dir */
     sfs_read_block(&dir, fdtable[fd].dir_bid);
-    printf("HEREeee\n");
+    printf("HEREeee: %d\n", fd);
     for(i = 0; i < SFS_DB_NINODES; i++){
         blkid inode_bid = dir.inodes[i];
         if(inode_bid = fdtable[fd].inode_bid){
