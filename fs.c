@@ -366,7 +366,7 @@ int sfs_open(char *dirname, char *name)
     dir.inodes[free] = inode_bid;
     printf("free: %d\n", free);
     sfs_write_block(&dir, dir_bid);
-	return fd;
+	return free;
 }
 
 /*
