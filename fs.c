@@ -363,7 +363,7 @@ int sfs_open(char *dirname, char *name)
     new_inode.size = 0;
     printf("HERE\n");
     new_inode.first_frame = -1;
-    strcpy(&new_inode.file_name, name);
+    strcpy(&(new_inode.file_name), name);
     sfs_write_block(&new_inode, inode_bid);
     dir.inodes[free] = inode_bid;
     sfs_write_block(&dir, dir_bid);
