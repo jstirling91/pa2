@@ -358,8 +358,9 @@ int sfs_open(char *dirname, char *name)
     
 	/* TODO: create a new file */
     inode_bid = sfs_alloc_block();
-    (*inode).size = 0;
     printf("HERE\n");
+    (*inode).size = 0;
+    
     (*inode).first_frame = -1;
     strcpy((*inode).file_name, name);
     sfs_write_block(inode, inode_bid);
