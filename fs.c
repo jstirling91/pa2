@@ -637,7 +637,7 @@ int sfs_seek(int fd, int relative, int loc)
             break;
         case SFS_SEEK_END:
             fdtable[fd].cur = fdtable[fd].inode.size + relative;
-            printf("END: %d\n", fdtable[fd].cur);
+            printf("END: %d\n", fdtable[fd].inode.size);
             break;
     }
 	return 0;
