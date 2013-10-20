@@ -174,7 +174,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
     for(ii = 0; ii < cur / (BLOCK_SIZE * SFS_FRAME_COUNT); ii++){
         temp = frame.next;
         sfs_read_block(&frame, temp);
-        printf("HERE\n");
+//        printf("HERE\n");
     }
     printf("II: %d\n", ii);
     ii = 0;
