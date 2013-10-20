@@ -547,10 +547,10 @@ int sfs_write(int fd, void *buf, int length)
     for(i = 0; i < n; i++){
         if(i == 0){
             sfs_read_block(&tmp, *(bids));
-            //printf("WRITE BEFORE: %s %d\n", tmp, *(bids));
+            printf("WRITE BEFORE: %s %d\n", tmp, *(bids));
             memcpy(&(tmp[cur % BLOCK_SIZE]), p, (cur + length) % BLOCK_SIZE);
             sfs_write_block(&tmp, *(bids));
-            //printf("WRITE: %s\n", tmp);
+            printf("WRITE: %s\n", tmp);
             length_left = length - ((cur + length) % BLOCK_SIZE);
         }
         else{
@@ -634,15 +634,15 @@ int sfs_seek(int fd, int relative, int loc)
     switch (loc) {
         case SFS_SEEK_SET:
             fdtable[fd].cur = relative;
-            printf("SET: %d\n", fdtable[fd].cur);
+//            printf("SET: %d\n", fdtable[fd].cur);
             break;
         case SFS_SEEK_CUR:
             fdtable[fd].cur = fdtable[fd].cur + relative;
-            printf("CUR: %d\n", fdtable[fd].cur);
+//            printf("CUR: %d\n", fdtable[fd].cur);
             break;
         case SFS_SEEK_END:
             fdtable[fd].cur = fdtable[fd].inode.size + relative;
-            printf("END: %d\n", fdtable[fd].cur);
+//            printf("END: %d\n", fdtable[fd].cur);
             break;
     }
 	return 0;
