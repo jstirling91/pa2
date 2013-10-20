@@ -612,7 +612,7 @@ int sfs_seek(int fd, int relative, int loc)
         case SFS_SEEK_CUR:
             fdtable[fd].cur = fdtable[fd].cur + relative;
             break;
-        case SFS_SEEK_END
+        case SFS_SEEK_END:
             fdtable[fd].cur = fdtable[fd].inode.size + relative;
             break;
     }
