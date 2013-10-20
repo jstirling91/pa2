@@ -552,6 +552,8 @@ int sfs_write(int fd, void *buf, int length)
 //    printf("N: %d\n", n);
     bids = (int *)malloc(n);
     sfs_get_file_content(bids, fd, cur, length);
+    if(n == 2)
+        printf("   blkid: %d", *(bids + 1));
 	/* TODO: main loop, go through every block, copy the necessary parts
 	   to the buffer, consult the hint in the document. Do not forget to 
 	   flush to the disk.
