@@ -560,7 +560,7 @@ int sfs_read(int fd, void *buf, int length)
     n = (cur + length) / BLOCK_SIZE + 1;
     bids = (int *)malloc(n);
     sfs_get_file_content(bids, fd, cur, length);
-    printf("buf: %d\n", n);
+    printf("buf: %d\n", *(bids));
     
     int length_left = length;
     
