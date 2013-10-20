@@ -188,8 +188,9 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
             sfs_read_block(&frame, temp);
             printf("HERE: %d\n", i);
         }
-        printf("HERE: %d\n", i);
         if(frame.content[i % SFS_FRAME_COUNT] == 0){
+            
+            printf("HERE: %d\n", i);
             frame.content[i % SFS_FRAME_COUNT] = sfs_alloc_block();
         }
         *(bids + ii) = frame.content[i % SFS_FRAME_COUNT];
