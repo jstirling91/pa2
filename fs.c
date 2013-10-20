@@ -195,6 +195,7 @@ static blkid sfs_find_dir(char *dirname)
         sfs_read_block(&dir, dir_bid);
         if(strcmp(dirname, dir.dir_name) == 0)
             return dir_bid;
+        printf("HERE\n");
         while(dir.next_dir != 0){
             dir_bid = dir.next_dir;
             sfs_read_block(&dir, dir_bid);
@@ -366,7 +367,6 @@ int sfs_open(char *dirname, char *name)
     }
 	/* TODO: find the dir first */
     dir_bid = sfs_find_dir(dirname);
-    printf("HERE\n");
     if(dir_bid == 0)
         return -1;
     sfs_read_block(&dir, dir_bid);
