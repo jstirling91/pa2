@@ -187,11 +187,11 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
  */
 static blkid sfs_find_dir(char *dirname)
 {
-    sfs_lsdir();
 	blkid dir_bid = 0;
 	sfs_dirblock_t dir;
 	/* TODO: start from the sb.first_dir, treverse the linked list */
     if(sb.first_dir != 0){
+        printf("HERE\n");
         dir_bid = sb.first_dir;
         sfs_read_block(&dir, dir_bid);
         if(strcmp(dirname, dir.dir_name) == 0)
@@ -206,7 +206,6 @@ static blkid sfs_find_dir(char *dirname)
                 return dir_bid;
         }
     }
-    printf("HERE\n");
 	return 0;
 }
 
