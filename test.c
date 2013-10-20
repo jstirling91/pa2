@@ -210,9 +210,9 @@ static int testcase9(void)
 	sfs_write(fd, "world", 5);
 	sfs_seek(fd, -6, SFS_SEEK_END);
 	sfs_write(fd, " ", 1);
+    printf("HERE\n");
 	sfs_seek(fd, 11, SFS_SEEK_SET);
 	sfs_write(fd, "!", 2);
-    printf("HERE\n");
 	sfs_seek(fd, -11, SFS_SEEK_END);
 	sfs_seek(fd, -2, SFS_SEEK_CUR);
 	sfs_write(fd, "hello", 5);
