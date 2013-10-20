@@ -156,9 +156,9 @@ static int testcase6(void)
 static int testcase7(void)
 {
 	/* write, seek back and overwrite */
+    printf("TEST 7\n");
 	int tmp;
 	int fd;
-    printf("HERE\n");
 	fd = sfs_open("root","file5");
     
 	tmp = sfs_write(fd, "hello world!!", 14);
