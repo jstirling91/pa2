@@ -172,10 +172,10 @@ static int testcase7(void)
 	memset(tmpbuf,0,BLOCK_SIZE);
 	tmp = sfs_read(fd, tmpbuf, 14);
 	if (tmp != 14){
-        printf("HERE\n");
 		return 1;
     }
 	sfs_close(fd);
+    printf("HERE: %s\n" tmpbuf);
 	return memcmp("hello comp310", tmpbuf, 14);
 }
 
