@@ -180,7 +180,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
     //printf("II: %d\n", ii);
     ii = 0;
 //    ////printf("START: %d, FINISH: %d\n", start, end);
-    for(i = start; i < end; i++){
+    for(i = start; i <= end; i++){
         if(i % SFS_FRAME_COUNT == 0 && i != 0){
             printf("HERE: %d\n", i);
             sfs_write_block(&frame, temp);
