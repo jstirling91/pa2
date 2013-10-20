@@ -182,9 +182,8 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
     ii = 0;
 //    ////printf("START: %d, FINISH: %d\n", start, end);
     for(i = start; i <= end; i++){
-        printf("HERE\n");
-        if(i == SFS_FRAME_COUNT){
-            
+        if(i % SFS_FRAME_COUNT == 0){
+            printf("HERE\n");
             sfs_write_block(&frame, temp);
             temp = frame.next;
             sfs_read_block(&frame, temp);
