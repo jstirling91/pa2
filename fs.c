@@ -406,6 +406,7 @@ int sfs_close(int fd)
 {
 	/* TODO: mark the valid field */
     fdtable[fd].valid = 0;
+    printf("HERE %d", fd);
 	return 0;
 }
 
