@@ -164,6 +164,7 @@ static int testcase7(void)
     
 	tmp = sfs_write(fd, "hello world!!", 14);
 	if (tmp != 14) {
+        printf("HERE\n");
 		return 1;
 	}
 	sfs_seek(fd, -8, SFS_SEEK_CUR);

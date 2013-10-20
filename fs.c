@@ -191,7 +191,6 @@ static blkid sfs_find_dir(char *dirname)
 	sfs_dirblock_t dir;
 	/* TODO: start from the sb.first_dir, treverse the linked list */
     if(sb.first_dir != 0){
-        printf("HERE\n");
         dir_bid = sb.first_dir;
         sfs_read_block(&dir, dir_bid);
         if(strcmp(dirname, dir.dir_name) == 0)
