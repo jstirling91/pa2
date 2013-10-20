@@ -628,6 +628,6 @@ int sfs_eof(int fd)
 {
 	/* TODO: check if the cursor has gone out of bound */
     if(fdtable[fd].inode.size < fdtable[fd].cur)
-        return 1;
+//        return 1;
 	return 0;
 }
