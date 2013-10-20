@@ -164,7 +164,6 @@ static int testcase7(void)
     
 	tmp = sfs_write(fd, "hello world!!", 14);
 	if (tmp != 14) {
-        printf("HERE\n");
 		return 1;
 	}
 	sfs_seek(fd, -8, SFS_SEEK_CUR);
@@ -172,8 +171,10 @@ static int testcase7(void)
 	sfs_seek(fd, 0, SFS_SEEK_SET);
 	memset(tmpbuf,0,BLOCK_SIZE);
 	tmp = sfs_read(fd, tmpbuf, 14);
-	if (tmp != 14)
+	if (tmp != 14){
+        printf("HERE\n");
 		return 1;
+    }
 	sfs_close(fd);
 	return memcmp("hello comp310", tmpbuf, 14);
 }
