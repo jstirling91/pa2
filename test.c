@@ -232,6 +232,7 @@ static int testcase10(void)
 
 	fd = sfs_open("root","file3");
 	for (i = 0; i < 100; ++i) {
+        printf("I: %d", i);
 		tmp = sfs_write(fd, "hello world", 12);
 		if (tmp != 12)
 			return 1;
