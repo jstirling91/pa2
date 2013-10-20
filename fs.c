@@ -518,6 +518,7 @@ int sfs_write(int fd, void *buf, int length)
         if(i == 0){
             sfs_read_block(&tmp, *(bids));
             memcpy(&(tmp[cur % BLOCK_SIZE]), p, (cur + length) % BLOCK_SIZE);
+            printf("buf: %s\n", tmp);
             sfs_write_block(&tmp, *(bids));
             length_left = length - ((cur + length) % BLOCK_SIZE);
         }
@@ -528,6 +529,7 @@ int sfs_write(int fd, void *buf, int length)
             length_left = length_left - BLOCK_SIZE;
         }
     }
+    
     
 	/* TODO: update the cursor and free the temp buffer
 	   for sfs_get_file_content()
@@ -574,7 +576,7 @@ int sfs_read(int fd, void *buf, int length)
             length_left = length_left - BLOCK_SIZE;
         }
     }
-    printf("buf: %s", p);
+    
     
 	return length;
 }
