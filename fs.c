@@ -388,7 +388,6 @@ int sfs_open(char *dirname, char *name)
                 fdtable[fd].dir_bid = dir_bid;
                 fdtable[fd].cur = 0;
                 fdtable[fd].valid = 1;
-                printf("HERE\n");
                 return fd;
             }
         }
@@ -409,11 +408,12 @@ int sfs_open(char *dirname, char *name)
     dir.inodes[free] = inode_bid;
     sfs_write_block(&dir, dir_bid);
     
-    fdtable[free].inode = inode;
-    fdtable[free].inode_bid = inode_bid;
-    fdtable[free].dir_bid = dir_bid;
-    fdtable[free].cur = 0;
-    fdtable[free].valid = 1;
+    fdtable[fd].inode = inode;
+    fdtable[fd].inode_bid = inode_bid;
+    printf("HEREEEEE: %d\n", inode_bid);
+    fdtable[fd].dir_bid = dir_bid;
+    fdtable[fd].cur = 0;
+    fdtable[fd].valid = 1;
     
 	return free;
 }
