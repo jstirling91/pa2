@@ -607,13 +607,14 @@ int sfs_seek(int fd, int relative, int loc)
 	/* TODO: get the old cursor, change it as specified by the parameters */
     switch (loc) {
         SFS_SEEK_SET:
-            fdtable[fd].cur = relative
+            fdtable[fd].cur = relative;
             break;
         SFS_SEEK_CUR:
             fdtable[fd].cur = fdtable[fd].cur + relative;
             break;
         SFS_SEEK_END
             fdtable[fd].cur = fdtable[fd].inode.size + relative;
+            break;
     }
 	return 0;
 }
