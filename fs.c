@@ -125,6 +125,7 @@ static void sfs_resize_file(int fd, u32 new_size)
         frame_bid = temp;
     }
     frame.next = 0;
+    printf("fram_content: %d\n", frame.content[0]);
     sfs_write_block(&frame, frame_bid);
 
 	/* TODO: add the new frame to the inode frame list
