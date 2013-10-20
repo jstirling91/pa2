@@ -102,7 +102,6 @@ static void sfs_resize_file(int fd, u32 new_size)
 	/* TODO: check if new frames are required */
     j = new_nframe - old_nframe;
     if(j == 0){
-        printf("HERE");
         return;
     }
 	
@@ -110,6 +109,7 @@ static void sfs_resize_file(int fd, u32 new_size)
     sfs_inode_t inode = fdtable[fd].inode;
     frame_bid = inode.first_frame;
     if(frame_bid == 0){
+        printf("HERE");
         frame_bid = sfs_alloc_block();
         inode.first_frame = frame_bid;
         sfs_write_block(&inode, fdtable[fd].inode_bid);
