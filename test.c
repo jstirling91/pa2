@@ -175,7 +175,7 @@ static int testcase7(void)
 		return 1;
     }
 	sfs_close(fd);
-    printf("HERE: %s\n" tmpbuf);
+    printf("HERE: %s\n", tmpbuf);
 	return memcmp("hello comp310", tmpbuf, 14);
 }
 
