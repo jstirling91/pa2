@@ -157,7 +157,6 @@ static int testcase6(void)
 static int testcase7(void)
 {
 	/* write, seek back and overwrite */
-    printf("TEST 7\n");
 	int tmp;
 	int fd;
 	fd = sfs_open("root","file5");
@@ -202,6 +201,7 @@ static int testcase8(void)
 static int testcase9(void)
 {
 	/* complicated seek */
+    printf("TEST 7\n");
 	int tmp;
 	int fd;
 	fd = sfs_open("root","file7");
