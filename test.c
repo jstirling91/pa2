@@ -206,9 +206,9 @@ static int testcase9(void)
 	int fd;
 	fd = sfs_open("root","file7");
 	sfs_write(fd, "xx", 2);
-    printf("HERE\n");
 	sfs_seek(fd, +4, SFS_SEEK_CUR);
 	sfs_write(fd, "world", 5);
+    printf("HERE\n");
 	sfs_seek(fd, -6, SFS_SEEK_END);
 	sfs_write(fd, " ", 1);
 	sfs_seek(fd, 11, SFS_SEEK_SET);
