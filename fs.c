@@ -186,6 +186,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
         ii++;
     }
     sfs_write_block(&frame, temp);
+    printf("TEMP: %d\n", temp);
 	return ii;
 }
 
