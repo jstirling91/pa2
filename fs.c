@@ -135,7 +135,6 @@ static void sfs_resize_file(int fd, u32 new_size)
     for(index = 0; index < SFS_FRAME_COUNT; index++){
         frame.content[index] = 0;
     }
-    printf("HERE %d\n", frame.next);
     sfs_write_block(&frame, frame_bid);
 
 	/* TODO: add the new frame to the inode frame list
@@ -165,12 +164,9 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
 	*/
     start = cur / BLOCK_SIZE;
     end = (cur + length) / BLOCK_SIZE;
-    printf("start: %d    end: %d\n", start, end);
     sfs_read_block(&frame, fdtable[fd].inode.first_frame);
-    printf("buf: %d\n", fdtable[fd].inode.first_frame);
     int ii;
     for(ii = 0; ii < cur / (BLOCK_SIZE * SFS_FRAME_COUNT); ii++){
-        printf("HERE\n");
         sfs_read_block(&frame, frame.next);
     }
     ii = 0;
@@ -379,7 +375,6 @@ int sfs_open(char *dirname, char *name)
     int free = -1;
     for(i = 0; i < SFS_DB_NINODES; i++){
         inode_bid = dir.inodes[i];
-//        printf("%d\n", inode_bid);
         if(inode_bid > 2){
             sfs_read_block(&inode, inode_bid);
             if(strcmp(name, inode.file_name) == 0){
@@ -423,7 +418,6 @@ int sfs_close(int fd)
 {
 	/* TODO: mark the valid field */
     fdtable[fd].valid = 0;
-//    printf("HERE %d", fd);
 	return 0;
 }
 
@@ -507,7 +501,6 @@ int sfs_ls()
  */
 int sfs_write(int fd, void *buf, int length)
 {
-    printf("WRITE\n");
 	int remaining, offset, to_copy;
 	blkid *bids;
 	int i, n;
@@ -526,7 +519,6 @@ int sfs_write(int fd, void *buf, int length)
     n = (cur + length) / BLOCK_SIZE + 1;
     bids = (int *)malloc(n);
     sfs_get_file_content(bids, fd, cur, length);
-    printf("BIDS: %d\n", *bids);
 	/* TODO: main loop, go through every block, copy the necessary parts
 	   to the buffer, consult the hint in the document. Do not forget to 
 	   flush to the disk.
@@ -566,7 +558,6 @@ int sfs_write(int fd, void *buf, int length)
  */
 int sfs_read(int fd, void *buf, int length)
 {
-    printf("READ\n");
 	int remaining, to_copy, offset;
 	blkid *bids;
 	int i, n;
@@ -579,7 +570,6 @@ int sfs_read(int fd, void *buf, int length)
     n = (cur + length) / BLOCK_SIZE + 1;
     bids = (int *)malloc(n);
     u32 test = sfs_get_file_content(bids, fd, cur, length);
-    printf("buf: %d\n", *(bids));
     
     int length_left = length;
     
