@@ -121,10 +121,18 @@ static void sfs_resize_file(int fd, u32 new_size)
     for(i = 0; i < j; i++){
         temp = sfs_alloc_block();
         frame.next = temp;
+        int index;
+        for(index = 0; index < SFS_FRAME_COUNT; index++){
+            frame.content[index] = 0;
+        }
         sfs_write_block(&frame, frame_bid);
         frame_bid = temp;
     }
     frame.next = 0;
+    int index;
+    for(index = 0; index < SFS_FRAME_COUNT; index++){
+        frame.content[index] = 0;
+    }
     printf("fram_content: %d\n", frame.content[0]);
     sfs_write_block(&frame, frame_bid);
 
