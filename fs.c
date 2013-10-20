@@ -110,6 +110,9 @@ static void sfs_resize_file(int fd, u32 new_size)
     sfs_inode_t inode = fdtable[fd].inode;
     frame_bid = inode.first_frame;
     if(frame_bid == 0){
+        
+        printf("HERE\n");
+
         frame_bid = sfs_alloc_block();
         //printf("FRAME_BID: %d\n", frame_bid);
         inode.first_frame = frame_bid;
@@ -123,9 +126,7 @@ static void sfs_resize_file(int fd, u32 new_size)
     } while (frame_bid != 0);
     blkid temp;
     printf("I: %d, J: %d\n", i, j);
-    for(i = 1; i < j; i++){
-        printf("HERE\n");
-        temp = sfs_alloc_block();
+    for(i = 1; i < j; i++){        temp = sfs_alloc_block();
         frame.next = temp;
         int index;
         for(index = 0; index < SFS_FRAME_COUNT; index++){
