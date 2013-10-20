@@ -111,6 +111,7 @@ static void sfs_resize_file(int fd, u32 new_size)
     frame_bid = inode.first_frame;
     if(frame_bid == 0){
         frame_bid = sfs_alloc_block();
+        printf("FRAME_BID: %d\n", frame_bid);
         inode.first_frame = frame_bid;
         sfs_write_block(&inode, fdtable[fd].inode_bid);
         fdtable[fd].inode = inode;
@@ -174,7 +175,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
     
     for(i = start; i <= end; i++){
         *(bids + ii) = frame.content[i % SFS_FRAME_COUNT];
-        printf("BIDS: %d\n", frame.content[i % SFS_FRAME_COUNT]);
+        printf("BIDS: %d\n ", frame.content[i % SFS_FRAME_COUNT]);
         
         ii++;
     }
