@@ -196,10 +196,10 @@ static blkid sfs_find_dir(char *dirname)
         if(strcmp(dirname, dir.dir_name) == 0)
             return dir_bid;
         int i = 0;
+        printf("dir_name: %s\n", dir.dir_name);
         while(dir.next_dir != 0 && i < 10){
             dir_bid = dir.next_dir;
             sfs_read_block(&dir, dir_bid);
-            printf("dir_name: %s\n", dir.dir_name);
             i++;
             if(strcmp(dirname, dir.dir_name) == 0)
                 return dir_bid;
