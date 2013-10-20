@@ -159,11 +159,11 @@ static int testcase7(void)
 	int tmp;
 	int fd;
 	fd = sfs_open("root","file5");
+    printf("HERE\n");
 	tmp = sfs_write(fd, "hello world!!", 14);
 	if (tmp != 14) {
 		return 1;
 	}
-    printf("HERE\n");
 	sfs_seek(fd, -8, SFS_SEEK_CUR);
 	sfs_write(fd, "comp310", 7);
 	sfs_seek(fd, 0, SFS_SEEK_SET);
