@@ -388,6 +388,7 @@ int sfs_open(char *dirname, char *name)
                 fdtable[fd].dir_bid = dir_bid;
                 fdtable[fd].cur = 0;
                 fdtable[fd].valid = 1;
+                printf("HERE\n");
                 return fd;
             }
         }
