@@ -160,6 +160,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
 	u32 end;
 	u32 i;
 	sfs_inode_frame_t frame;
+    blkid temp;
 
 	/* TODO: find blocks between start and end.
 	   Transverse the frame list if needed
@@ -169,7 +170,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
     temp = fdtable[fd].inode.first_frame;
     sfs_read_block(&frame, temp);
     int ii;
-    blkid temp;
+    
     for(ii = 0; ii < cur / (BLOCK_SIZE * SFS_FRAME_COUNT); ii++){
         temp = frame.next;
         sfs_read_block(&frame, temp);
