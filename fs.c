@@ -501,6 +501,7 @@ int sfs_ls()
  */
 int sfs_write(int fd, void *buf, int length)
 {
+    printf("WRITE\n");
 	int remaining, offset, to_copy;
 	blkid *bids;
 	int i, n;
@@ -519,6 +520,7 @@ int sfs_write(int fd, void *buf, int length)
     n = (cur + length) / BLOCK_SIZE + 1;
     bids = (int *)malloc(n);
     sfs_get_file_content(bids, fd, cur, length);
+    printf("BIDS: %d\n", *bids);
 	/* TODO: main loop, go through every block, copy the necessary parts
 	   to the buffer, consult the hint in the document. Do not forget to 
 	   flush to the disk.
