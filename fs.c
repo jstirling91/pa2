@@ -192,6 +192,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
             
             printf("HERE: %d\n", i);
             frame.content[i % SFS_FRAME_COUNT] = sfs_alloc_block();
+            printf("HERE: %d\n", i);
         }
         *(bids + ii) = frame.content[i % SFS_FRAME_COUNT];
 //        //printf("BIDS: %d\n", frame.content[i % SFS_FRAME_COUNT]);
