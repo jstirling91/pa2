@@ -562,7 +562,7 @@ int sfs_read(int fd, void *buf, int length)
     n = (cur + length) / BLOCK_SIZE + 1;
     bids = (int *)malloc(n);
     u32 test = sfs_get_file_content(bids, fd, cur, length);
-    printf("buf: %d\n", test);
+    printf("buf: %d\n", *(bids));
     
     int length_left = length;
     
