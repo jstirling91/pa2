@@ -131,27 +131,27 @@ static int testcase5(void)
 	return memcmp("world!", tmpbuf, 7);
 }
 
-static int testcase6(void)
-{
-	/* write, seek back and read to eof */
-	int tmp;
-	int fd;
-	int i;
-	fd = sfs_open("root","file4");
-	tmp = sfs_write(fd, "hello world!", 13);
-	if (tmp != 13) {
-		return 1;
-	}
-	sfs_seek(fd, -7, SFS_SEEK_CUR);
-	memset(tmpbuf,0,BLOCK_SIZE);
-	for (i = 0; i < BLOCK_SIZE && !sfs_eof(fd); ++i) {
-		tmp = sfs_read(fd, &tmpbuf[i], 1);
-		if (tmp != 1)
-			return 1;
-	}
-	sfs_close(fd);
-	return memcmp("world!", tmpbuf, 7);
-}
+//static int testcase6(void)
+//{
+//	/* write, seek back and read to eof */
+//	int tmp;
+//	int fd;
+//	int i;
+//	fd = sfs_open("root","file4");
+//	tmp = sfs_write(fd, "hello world!", 13);
+//	if (tmp != 13) {
+//		return 1;
+//	}
+//	sfs_seek(fd, -7, SFS_SEEK_CUR);
+//	memset(tmpbuf,0,BLOCK_SIZE);
+//	for (i = 0; i < BLOCK_SIZE && !sfs_eof(fd); ++i) {
+//		tmp = sfs_read(fd, &tmpbuf[i], 1);
+//		if (tmp != 1)
+//			return 1;
+//	}
+//	sfs_close(fd);
+//	return memcmp("world!", tmpbuf, 7);
+//}
 
 static int testcase7(void)
 {
