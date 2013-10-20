@@ -415,7 +415,7 @@ int sfs_open(char *dirname, char *name)
     fdtable[fd].cur = 0;
     fdtable[fd].valid = 1;
     
-	return free;
+	return fd;
 }
 
 /*
