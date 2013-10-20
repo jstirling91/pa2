@@ -112,6 +112,7 @@ static void sfs_resize_file(int fd, u32 new_size)
         frame_bid = sfs_alloc_block();
         inode.first_frame = frame_bid;
         sfs_write_block(&inode, fdtable[fd].inode_bid);
+        fdtable[fd].inode = inode;
 //        sfs_write_block(&frame, frame_bid);
     }
     else do {
