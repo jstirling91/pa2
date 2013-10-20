@@ -546,33 +546,33 @@ int sfs_write(int fd, void *buf, int length)
  */
 int sfs_read(int fd, void *buf, int length)
 {
-	int remaining, to_copy, offset;
-	blkid *bids;
-	int i, n;
-	char *p = (char *)buf;
-	char tmp[BLOCK_SIZE];
-	u32 cur = fdtable[fd].cur;
-
-	/* TODO: check if we need to truncate */
-	/* TODO: similar to the sfs_write() */
-    n = (cur + length) % BLOCK_SIZE;
-    bids = (int *)malloc(n);
-    sfs_get_file_content(bids, fd, cur, length);
-    
-    int length_left = length;
-    
-    for(i = 0; i < n; i++){
-        if(i == 0){
-            sfs_read_block(&tmp, *(bids));
-            memcpy(p, &(tmp[cur % BLOCK_SIZE]), (cur + length) % BLOCK_SIZE);
-            length_left = length - ((cur + length) % BLOCK_SIZE);
-        }
-        else{
-            sfs_write_block(&tmp, *(bids + i));
-            memcpy((p + length - length_left), &tmp, BLOCK_SIZE);
-            length_left = length_left - BLOCK_SIZE;
-        }
-    }
+//	int remaining, to_copy, offset;
+//	blkid *bids;
+//	int i, n;
+//	char *p = (char *)buf;
+//	char tmp[BLOCK_SIZE];
+//	u32 cur = fdtable[fd].cur;
+//
+//	/* TODO: check if we need to truncate */
+//	/* TODO: similar to the sfs_write() */
+//    n = (cur + length) % BLOCK_SIZE;
+//    bids = (int *)malloc(n);
+//    sfs_get_file_content(bids, fd, cur, length);
+//    
+//    int length_left = length;
+//    
+//    for(i = 0; i < n; i++){
+//        if(i == 0){
+//            sfs_read_block(&tmp, *(bids));
+//            memcpy(p, &(tmp[cur % BLOCK_SIZE]), (cur + length) % BLOCK_SIZE);
+//            length_left = length - ((cur + length) % BLOCK_SIZE);
+//        }
+//        else{
+//            sfs_write_block(&tmp, *(bids + i));
+//            memcpy((p + length - length_left), &tmp, BLOCK_SIZE);
+//            length_left = length_left - BLOCK_SIZE;
+//        }
+//    }
     
 	return length;
 }
