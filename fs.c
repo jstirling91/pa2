@@ -123,15 +123,15 @@ static void sfs_resize_file(int fd, u32 new_size)
     } while (frame_bid != 0);
     blkid temp;
     printf("I: %d, J: %d\n", i, j);
+    j = j - i;
     for(i = 0; i < j; i++){
-        
         temp = sfs_alloc_block();
         frame.next = temp;
         int index;
         for(index = 0; index < SFS_FRAME_COUNT; index++){
             frame.content[index] = 0;
         }
-        printf("HERE\n");
+        
         sfs_write_block(&frame, frame_bid);
         frame_bid = temp;
     }
@@ -141,6 +141,7 @@ static void sfs_resize_file(int fd, u32 new_size)
         frame.content[index] = 0;
     }
     sfs_write_block(&frame, frame_bid);
+    printf("HERE\n");
 
 	/* TODO: add the new frame to the inode frame list
 	   Note that if the inode is changed, you need to write it to the disk
