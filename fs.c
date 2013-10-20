@@ -574,6 +574,7 @@ int sfs_read(int fd, void *buf, int length)
             length_left = length_left - BLOCK_SIZE;
         }
     }
+    printf("buf: %s", p);
     
 	return length;
 }
