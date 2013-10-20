@@ -186,7 +186,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
             sfs_write_block(&frame, temp);
             temp = frame.next;
             sfs_read_block(&frame, temp);
-//            printf("HERE: %d\n", i);
+            printf("HERE: %d\n", i);
         }
         if(frame.content[i % SFS_FRAME_COUNT] == 0){
             
@@ -200,7 +200,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
         ii++;
     }
     sfs_write_block(&frame, temp);
-    printf("HERE: %d\n", i);
+//    printf("HERE: %d\n", i);
 //    //printf("TEMP: %d\n", temp);
 	return ii;
 }
