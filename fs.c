@@ -195,10 +195,12 @@ static blkid sfs_find_dir(char *dirname)
         sfs_read_block(&dir, dir_bid);
         if(strcmp(dirname, dir.dir_name) == 0)
             return dir_bid;
-        while(dir.next_dir != 0){
-            printf("HERE\n");
+        int i = 0;
+        while(dir.next_dir != 0 && i < 10){
             dir_bid = dir.next_dir;
             sfs_read_block(&dir, dir_bid);
+            printf("dir_name: %s   next_dir: %s\n", dir.dir_name, dir_name.next_dir);
+            i++;
             if(strcmp(dirname, dir.dir_name) == 0)
                 return dir_bid;
         }
