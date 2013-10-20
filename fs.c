@@ -583,7 +583,7 @@ int sfs_read(int fd, void *buf, int length)
         if(i == 0){
             sfs_read_block(&tmp, *(bids));
             memcpy(p, &(tmp[cur % BLOCK_SIZE]), (cur + length) % BLOCK_SIZE);
-            printf("READ: %d\n", *(bids));
+            printf("READ: %d\n", test);
             length_left = length - ((cur + length) % BLOCK_SIZE);
         }
         else{
