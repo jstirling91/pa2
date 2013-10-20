@@ -175,7 +175,6 @@ static int testcase7(void)
 		return 1;
     }
 	sfs_close(fd);
-    printf("HERE: %s\n", tmpbuf);
 	return memcmp("hello comp310", tmpbuf, 14);
 }
 
@@ -216,6 +215,7 @@ static int testcase9(void)
 	sfs_seek(fd, -11, SFS_SEEK_END);
 	sfs_seek(fd, -2, SFS_SEEK_CUR);
 	sfs_write(fd, "hello", 5);
+    printf("HERE\n");
 	sfs_seek(fd, 0, SFS_SEEK_SET);
 	memset(tmpbuf, 0, BLOCK_SIZE);
 	tmp = sfs_read(fd, tmpbuf, 13);
