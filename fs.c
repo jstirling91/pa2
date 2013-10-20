@@ -141,8 +141,6 @@ static void sfs_resize_file(int fd, u32 new_size)
         frame.content[index] = 0;
     }
     sfs_write_block(&frame, frame_bid);
-    printf("HERE\n");
-
 	/* TODO: add the new frame to the inode frame list
 	   Note that if the inode is changed, you need to write it to the disk
 	*/
@@ -543,6 +541,7 @@ int sfs_write(int fd, void *buf, int length)
 //    printf("N: %d\n", n);
     bids = (int *)malloc(n);
     sfs_get_file_content(bids, fd, cur, length);
+    printf("HERE\n");
 	/* TODO: main loop, go through every block, copy the necessary parts
 	   to the buffer, consult the hint in the document. Do not forget to 
 	   flush to the disk.
