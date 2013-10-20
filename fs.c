@@ -187,6 +187,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
  */
 static blkid sfs_find_dir(char *dirname)
 {
+    sfs_lsdir();
 	blkid dir_bid = 0;
 	sfs_dirblock_t dir;
 	/* TODO: start from the sb.first_dir, treverse the linked list */
