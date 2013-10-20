@@ -119,7 +119,7 @@ static void sfs_resize_file(int fd, u32 new_size)
         frame_bid = frame.next;
     } while (frame_bid != 0);
     blkid temp;
-    for(i = 0; i < j; i++){
+    for(i = 1; i < j; i++){
         
         printf("HERE %d\n", j);
         temp = sfs_alloc_block();
