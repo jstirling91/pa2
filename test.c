@@ -231,7 +231,7 @@ static int testcase10(void)
 	int i;
 
 	fd = sfs_open("root","file3");
-	for (i = 0; i < 43; ++i) {
+	for (i = 0; i < 44; ++i) {
         printf("I: %d\n", i);
 		tmp = sfs_write(fd, "hello world", 12);
 		if (tmp != 12)
@@ -240,7 +240,7 @@ static int testcase10(void)
 	}
     printf("HERE\n");
 	sfs_seek(fd, 0, SFS_SEEK_SET);
-	for (i = 0; i < 43; ++i) {
+	for (i = 0; i < 44; ++i) {
 		tmp = sfs_read(fd, tmpbuf, 12);
 		if (tmp != 12)
 			return 1;
