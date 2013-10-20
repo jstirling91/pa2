@@ -210,7 +210,6 @@ static int testcase9(void)
 	sfs_write(fd, "world", 5);
 	sfs_seek(fd, -6, SFS_SEEK_END);
 	sfs_write(fd, " ", 1);
-    printf("HERE\n");
 	sfs_seek(fd, 11, SFS_SEEK_SET);
 	sfs_write(fd, "!", 2);
 	sfs_seek(fd, -11, SFS_SEEK_END);
@@ -219,6 +218,7 @@ static int testcase9(void)
 	sfs_seek(fd, 0, SFS_SEEK_SET);
 	memset(tmpbuf, 0, BLOCK_SIZE);
 	tmp = sfs_read(fd, tmpbuf, 13);
+    printf("FD: %s\n", fd);
 	if (tmp != 13)
 		return 1;
 	sfs_close(fd);
