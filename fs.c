@@ -99,6 +99,7 @@ static void sfs_resize_file(int fd, u32 new_size)
 	int i, j;
 	blkid frame_bid = 0;
 	sfs_inode_frame_t frame;
+    printf("HERE\n");
 
 	/* TODO: check if new frames are required */
     j = new_nframe - old_nframe;
