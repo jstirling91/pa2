@@ -536,7 +536,7 @@ int sfs_write(int fd, void *buf, int length)
 	
 	/* TODO: get the block ids of all contents (using sfs_get_file_content() */
     n = ((cur + length) / BLOCK_SIZE) - (cur / BLOCK_SIZE) + 1;
-    printf("N: %d\n", n);
+//    printf("N: %d\n", n);
     bids = (int *)malloc(n);
     sfs_get_file_content(bids, fd, cur, length);
 	/* TODO: main loop, go through every block, copy the necessary parts
