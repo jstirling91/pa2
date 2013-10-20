@@ -218,7 +218,7 @@ static int testcase9(void)
 	sfs_seek(fd, 0, SFS_SEEK_SET);
 	memset(tmpbuf, 0, BLOCK_SIZE);
 	tmp = sfs_read(fd, tmpbuf, 13);
-    printf("FD: %s\n", fd);
+    printf("FD: %s\n", tmpbuf);
 	if (tmp != 13)
 		return 1;
 	sfs_close(fd);
