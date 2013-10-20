@@ -163,6 +163,7 @@ static int testcase7(void)
 	if (tmp != 14) {
 		return 1;
 	}
+    printf("HERE\n");
 	sfs_seek(fd, -8, SFS_SEEK_CUR);
 	sfs_write(fd, "comp310", 7);
 	sfs_seek(fd, 0, SFS_SEEK_SET);
