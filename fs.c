@@ -109,7 +109,6 @@ static void sfs_resize_file(int fd, u32 new_size)
     sfs_inode_t inode = fdtable[fd].inode;
     frame_bid = inode.first_frame;
     if(frame_bid == 0){
-        printf("HERE");
         frame_bid = sfs_alloc_block();
         inode.first_frame = frame_bid;
         sfs_write_block(&inode, fdtable[fd].inode_bid);
@@ -121,6 +120,8 @@ static void sfs_resize_file(int fd, u32 new_size)
     } while (frame_bid != 0);
     blkid temp;
     for(i = 0; i < j; i++){
+        
+        printf("HERE\n");
         temp = sfs_alloc_block();
         frame.next = temp;
         int index;
