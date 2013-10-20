@@ -583,6 +583,7 @@ int sfs_read(int fd, void *buf, int length)
         if(i == 0){
             sfs_read_block(&tmp, *(bids));
             memcpy(p, &(tmp[cur % BLOCK_SIZE]), (cur + length) % BLOCK_SIZE);
+            prinf("READ: %s", p);
             length_left = length - ((cur + length) % BLOCK_SIZE);
         }
         else{
@@ -614,11 +615,9 @@ int sfs_seek(int fd, int relative, int loc)
     switch (loc) {
         case SFS_SEEK_SET:
             fdtable[fd].cur = relative;
-            printf("SET: %d\n", fdtable[fd].cur);
             break;
         case SFS_SEEK_CUR:
             fdtable[fd].cur = fdtable[fd].cur + relative;
-            printf("CUR: %d\n", fdtable[fd].cur);
             break;
         case SFS_SEEK_END:
             fdtable[fd].cur = fdtable[fd].inode.size + relative;
