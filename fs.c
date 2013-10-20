@@ -559,7 +559,7 @@ int sfs_write(int fd, void *buf, int length)
             sfs_write_block(&tmp, *(bids + i));
             length_left = length_left - BLOCK_SIZE;
         }
-        printf("WRITE: %s\n", tmp);
+//        printf("WRITE: %s\n", tmp);
     }
     
     
@@ -568,6 +568,7 @@ int sfs_write(int fd, void *buf, int length)
 	*/
     fdtable[fd].cur = cur + length;
     free(bids);
+    printf("cur: %d\n", fdtable[fd].cur);
 //    fdtable[fd].inode = inode;
     
 	return length;
