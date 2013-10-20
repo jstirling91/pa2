@@ -528,10 +528,10 @@ int sfs_write(int fd, void *buf, int length)
 	u32 cur = fdtable[fd].cur;
 
 	/* TODO: check if we need to resize */
-    sfs_inode_t inode = fdtable[fd].inode;
-    if(cur + length > inode.size){
+//    sfs_inode_t inode = fdtable[fd].inode;
+    if(cur + length > fdtable[fd].inode.size){
         sfs_resize_file(fd, cur + length);
-        inode.size = cur + length;
+        fdtable[fd].inode.size = cur + length;
     }
 	
 	/* TODO: get the block ids of all contents (using sfs_get_file_content() */
