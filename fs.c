@@ -111,7 +111,7 @@ static void sfs_resize_file(int fd, u32 new_size)
     frame_bid = inode.first_frame;
     if(frame_bid == 0){
         frame_bid = sfs_alloc_block();
-        printf("FRAME_BID: %d\n", frame_bid);
+        //printf("FRAME_BID: %d\n", frame_bid);
         inode.first_frame = frame_bid;
         sfs_write_block(&inode, fdtable[fd].inode_bid);
         fdtable[fd].inode = inode;
@@ -174,22 +174,22 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
     for(ii = 0; ii < cur / (BLOCK_SIZE * SFS_FRAME_COUNT); ii++){
         temp = frame.next;
         sfs_read_block(&frame, temp);
-//        printf("HERE\n");
+//        //printf("HERE\n");
     }
-    printf("II: %d\n", ii);
+    //printf("II: %d\n", ii);
     ii = 0;
-    printf("START: %d, FINISH: %d\n", start, end);
+//    ////printf("START: %d, FINISH: %d\n", start, end);
     for(i = start; i <= end; i++){
         if(frame.content[i % SFS_FRAME_COUNT] == 0){
             frame.content[i % SFS_FRAME_COUNT] = sfs_alloc_block();
         }
         *(bids + ii) = frame.content[i % SFS_FRAME_COUNT];
-        printf("BIDS: %d\n", frame.content[i % SFS_FRAME_COUNT]);
+//        //printf("BIDS: %d\n", frame.content[i % SFS_FRAME_COUNT]);
         
         ii++;
     }
     sfs_write_block(&frame, temp);
-    printf("TEMP: %d\n", temp);
+//    //printf("TEMP: %d\n", temp);
 	return ii;
 }
 
@@ -209,7 +209,7 @@ static blkid sfs_find_dir(char *dirname)
         if(strcmp(dirname, dir.dir_name) == 0)
             return dir_bid;
         int i = 0;
-        printf("dir_name: %s\n  dir_next: %d", dir.dir_name, sb.first_dir);
+        //printf("dir_name: %s\n  dir_next: %d", dir.dir_name, sb.first_dir);
         while(dir.next_dir != 0 && i < 10){
             dir_bid = dir.next_dir;
             sfs_read_block(&dir, dir_bid);
@@ -261,7 +261,7 @@ sfs_superblock_t *sfs_print_info()
 {
 	/* TODO: load the superblock from disk and print*/
     sfs_read_block(&sb, 0);
-    printf("Magic: %d, nblocks: %d, nfreemap_blocks: %d, first_dir: %d\n", sb.magic, sb.nblocks, sb.nfreemap_blocks, sb.first_dir);
+    //printf("Magic: %d, nblocks: %d, nfreemap_blocks: %d, first_dir: %d\n", sb.magic, sb.nblocks, sb.nfreemap_blocks, sb.first_dir);
 	return &sb;
 }
 
@@ -494,14 +494,14 @@ int sfs_ls()
     int files = 0;
     sfs_read_block(&dir, dir_bid);
     do {
-        printf("%s\n", dir.dir_name);
+        //printf("%s\n", dir.dir_name);
         int i;
         for(i = 0; i < SFS_DB_NINODES; i++){
             sfs_inode_t inode;
             blkid inode_bid = dir.inodes[i];
             if(inode_bid > 2){
                 sfs_read_block(&inode, inode_bid);
-                printf("\t%s\n", inode.file_name);
+                //printf("\t%s\n", inode.file_name);
                 files++;
             }
         }
@@ -543,14 +543,14 @@ int sfs_write(int fd, void *buf, int length)
 	   flush to the disk.
 	*/
     int length_left = length;
-//    printf("FILE: %s\n", fdtable[fd].inode_bid);
+//    //printf("FILE: %s\n", fdtable[fd].inode_bid);
     for(i = 0; i < n; i++){
         if(i == 0){
             sfs_read_block(&tmp, *(bids));
-            printf("WRITE BEFORE: %s %d\n", tmp, *(bids));
+            //printf("WRITE BEFORE: %s %d\n", tmp, *(bids));
             memcpy(&(tmp[cur % BLOCK_SIZE]), p, (cur + length) % BLOCK_SIZE);
             sfs_write_block(&tmp, *(bids));
-            printf("WRITE: %s\n", tmp);
+            //printf("WRITE: %s\n", tmp);
             length_left = length - ((cur + length) % BLOCK_SIZE);
         }
         else{
@@ -599,7 +599,7 @@ int sfs_read(int fd, void *buf, int length)
         if(i == 0){
             sfs_read_block(&tmp, *(bids));
             memcpy(p, &(tmp[cur % BLOCK_SIZE]), (cur + length) % BLOCK_SIZE);
-            printf("READ: %s\n", p);
+            //printf("READ: %s\n", p);
             length_left = length - ((cur + length) % BLOCK_SIZE);
         }
         else{
