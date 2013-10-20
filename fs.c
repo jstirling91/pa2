@@ -166,7 +166,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
     end = (cur + length) / BLOCK_SIZE;
     printf("start: %d    end: %d\n", start, end);
     sfs_read_block(&frame, fdtable[fd].inode.first_frame);
-    printf("buf: %d\n", frame.next);
+    printf("buf: %d\n", fdtable[fd].inode.first_frame);
     int ii;
     for(ii = 0; ii < cur / (BLOCK_SIZE * SFS_FRAME_COUNT); ii++){
         printf("HERE\n");
