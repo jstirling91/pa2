@@ -489,52 +489,52 @@ int sfs_ls()
  */
 int sfs_write(int fd, void *buf, int length)
 {
-	int remaining, offset, to_copy;
-	blkid *bids;
-	int i, n;
-	char *p = (char *)buf;
-	char tmp[BLOCK_SIZE];
-	u32 cur = fdtable[fd].cur;
-
-	/* TODO: check if we need to resize */
-    sfs_inode_t inode = fdtable[fd].inode;
-    if(cur + length > inode.size){
-        sfs_resize_file(fd, cur + length);
-        inode.size = cur + length;
-    }
-	
-	/* TODO: get the block ids of all contents (using sfs_get_file_content() */
-    n = (cur + length) % BLOCK_SIZE;
-    bids = (int *)malloc(n);
-    sfs_get_file_content(bids, fd, cur, length);
-    
-	/* TODO: main loop, go through every block, copy the necessary parts
-	   to the buffer, consult the hint in the document. Do not forget to 
-	   flush to the disk.
-	*/
-    int length_left = length;
-    for(i = 0; i < n; i++){
-        if(i == 0){
-            sfs_read_block(&tmp, *(bids));
-            memcpy(&(tmp[cur % BLOCK_SIZE]), p, (cur + length) % BLOCK_SIZE);
-            sfs_write_block(&tmp, *(bids));
-            length_left = length - ((cur + length) % BLOCK_SIZE);
-        }
-        else{
-            sfs_write_block(&tmp, *(bids + i));
-            memcpy(&tmp, (p + length - length_left), BLOCK_SIZE);
-            sfs_write_block(&tmp, *(bids + i));
-            length_left = length_left - BLOCK_SIZE;
-        }
-    }
-    
-	/* TODO: update the cursor and free the temp buffer
-	   for sfs_get_file_content()
-	*/
-    fdtable[fd].cur = cur + length;
-    free(bids);
-    
-	return length;
+//	int remaining, offset, to_copy;
+//	blkid *bids;
+//	int i, n;
+//	char *p = (char *)buf;
+//	char tmp[BLOCK_SIZE];
+//	u32 cur = fdtable[fd].cur;
+//
+//	/* TODO: check if we need to resize */
+//    sfs_inode_t inode = fdtable[fd].inode;
+//    if(cur + length > inode.size){
+//        sfs_resize_file(fd, cur + length);
+//        inode.size = cur + length;
+//    }
+//	
+//	/* TODO: get the block ids of all contents (using sfs_get_file_content() */
+//    n = (cur + length) % BLOCK_SIZE;
+//    bids = (int *)malloc(n);
+//    sfs_get_file_content(bids, fd, cur, length);
+//    
+//	/* TODO: main loop, go through every block, copy the necessary parts
+//	   to the buffer, consult the hint in the document. Do not forget to 
+//	   flush to the disk.
+//	*/
+//    int length_left = length;
+//    for(i = 0; i < n; i++){
+//        if(i == 0){
+//            sfs_read_block(&tmp, *(bids));
+//            memcpy(&(tmp[cur % BLOCK_SIZE]), p, (cur + length) % BLOCK_SIZE);
+//            sfs_write_block(&tmp, *(bids));
+//            length_left = length - ((cur + length) % BLOCK_SIZE);
+//        }
+//        else{
+//            sfs_write_block(&tmp, *(bids + i));
+//            memcpy(&tmp, (p + length - length_left), BLOCK_SIZE);
+//            sfs_write_block(&tmp, *(bids + i));
+//            length_left = length_left - BLOCK_SIZE;
+//        }
+//    }
+//    
+//	/* TODO: update the cursor and free the temp buffer
+//	   for sfs_get_file_content()
+//	*/
+//    fdtable[fd].cur = cur + length;
+//    free(bids);
+//    
+//	return length;
 }
 
 /*
