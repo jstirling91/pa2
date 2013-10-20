@@ -446,7 +446,7 @@ int sfs_remove(int fd)
     
     
 	/* TODO: close the file */
-    close(fd);
+//    close(fd);
 	return 0;
 }
 
