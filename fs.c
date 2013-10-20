@@ -531,7 +531,7 @@ int sfs_write(int fd, void *buf, int length)
 	   flush to the disk.
 	*/
     int length_left = length;
-    printf("FILE: %s\n", fdtable[fd].inode_bid);
+//    printf("FILE: %s\n", fdtable[fd].inode_bid);
     for(i = 0; i < n; i++){
         if(i == 0){
             sfs_read_block(&tmp, *(bids));
