@@ -373,6 +373,8 @@ int sfs_open(char *dirname, char *name)
 	/* TODO: traverse the inodes to see if the file exists.
 	   If it exists, load its inode. Otherwise, create a new file.
 	*/
+    
+    printf("HERE\n");
     int free = -1;
     for(i = 0; i < SFS_DB_NINODES; i++){
         inode_bid = dir.inodes[i];
@@ -392,7 +394,6 @@ int sfs_open(char *dirname, char *name)
         }
     }
     
-    printf("HERE\n");
     if(free == -1)
         return -1;
     
