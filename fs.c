@@ -567,6 +567,7 @@ int sfs_write(int fd, void *buf, int length)
 	*/
     fdtable[fd].cur = cur + length;
     free(bids);
+    fdtable[fd].inode = inode;
     
 	return length;
 }
