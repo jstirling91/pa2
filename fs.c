@@ -206,6 +206,7 @@ static blkid sfs_find_dir(char *dirname)
                 return dir_bid;
         }
     }
+    printf("HERE\n");
 	return 0;
 }
 
