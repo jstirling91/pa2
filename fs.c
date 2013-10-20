@@ -200,7 +200,7 @@ static blkid sfs_find_dir(char *dirname)
             dir_bid = dir.next_dir;
             sfs_read_block(&dir, dir_bid);
             i++;
-            printf("dir_name: %s   next_dir: %s\n", dir.dir_bid, dir_name.next_dir);
+            printf("dir_name: %s   next_dir: %s\n", dir.dir_name, dir.next_dir);
             if(strcmp(dirname, dir.dir_name) == 0)
                 return dir_bid;
         }
