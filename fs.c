@@ -446,6 +446,7 @@ int sfs_remove(int fd)
     
     
 	/* TODO: close the file */
+    close(fd);
 	return 0;
 }
 
@@ -554,7 +555,26 @@ int sfs_read(int fd, void *buf, int length)
 
 	/* TODO: check if we need to truncate */
 	/* TODO: similar to the sfs_write() */
-	return 0;
+    n = (cur + length) % BLOCK_SIZE;
+    bids = (int *)malloc(n);
+    sfs_get_file_content(bids, fd, cur, length);
+    
+    int length_left = length;
+    
+    for(i = 0; i < n; i++){
+        if(i == 0){
+            sfs_read_block(&tmp, *(bids));
+            memcpy(p, &(tmp[cur % BLOCK_SIZE]), (cur + length) % BLOCK_SIZE);
+            length_left = length - ((cur + length) % BLOCK_SIZE);
+        }
+        else{
+            sfs_write_block(&tmp, *(bids + i));
+            memcpy((p + length - length_left), &tmp, BLOCK_SIZE);
+            length_left = length_left - BLOCK_SIZE;
+        }
+    }
+    
+	return length;
 }
 
 /* 
