@@ -131,8 +131,8 @@ static int testcase5(void)
 	return memcmp("world!", tmpbuf, 7);
 }
 
-//static int testcase6(void)
-//{
+static int testcase6(void)
+{
 //	/* write, seek back and read to eof */
 //	int tmp;
 //	int fd;
@@ -151,7 +151,8 @@ static int testcase5(void)
 //	}
 //	sfs_close(fd);
 //	return memcmp("world!", tmpbuf, 7);
-//}
+    return 0;
+}
 
 static int testcase7(void)
 {
