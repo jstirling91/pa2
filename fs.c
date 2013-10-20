@@ -162,8 +162,9 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
     ii = 0;
     for(i = start; i <= end; i++){
         *(bids + ii) = frame.content[i % SFS_FRAME_COUNT];
+        ii++;
     }
-	return 0;
+	return ii;
 }
 
 /*
@@ -508,7 +509,6 @@ int sfs_write(int fd, void *buf, int length)
     n = (cur + length) / BLOCK_SIZE + 1;
     bids = (int *)malloc(n);
     sfs_get_file_content(bids, fd, cur, length);
-    printf("buf1: %d\n", n);
 	/* TODO: main loop, go through every block, copy the necessary parts
 	   to the buffer, consult the hint in the document. Do not forget to 
 	   flush to the disk.
@@ -559,8 +559,8 @@ int sfs_read(int fd, void *buf, int length)
 	/* TODO: similar to the sfs_write() */
     n = (cur + length) / BLOCK_SIZE + 1;
     bids = (int *)malloc(n);
-    sfs_get_file_content(bids, fd, cur, length);
-    printf("buf: %d\n", *(bids));
+    u32 test = sfs_get_file_content(bids, fd, cur, length);
+    printf("buf: %d\n", test);
     
     int length_left = length;
     
