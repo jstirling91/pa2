@@ -505,7 +505,7 @@ int sfs_write(int fd, void *buf, int length)
     }
 	
 	/* TODO: get the block ids of all contents (using sfs_get_file_content() */
-    n = (cur + length) % BLOCK_SIZE;
+    n = (cur + length) / BLOCK_SIZE + 1;
     bids = (int *)malloc(n);
     sfs_get_file_content(bids, fd, cur, length);
     printf("buf1: %d\n", n);
@@ -557,7 +557,7 @@ int sfs_read(int fd, void *buf, int length)
 
 	/* TODO: check if we need to truncate */
 	/* TODO: similar to the sfs_write() */
-    n = (cur + length) % BLOCK_SIZE;
+    n = (cur + length) / BLOCK_SIZE + 1;
     bids = (int *)malloc(n);
     sfs_get_file_content(bids, fd, cur, length);
     printf("buf: %d\n", n);
