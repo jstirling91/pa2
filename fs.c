@@ -530,7 +530,10 @@ int sfs_write(int fd, void *buf, int length)
 	/* TODO: update the cursor and free the temp buffer
 	   for sfs_get_file_content()
 	*/
-	return 0;
+    fdtable[fd].cur = cur + length;
+    free(bids);
+    
+	return length;
 }
 
 /*
