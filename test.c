@@ -201,7 +201,6 @@ static int testcase8(void)
 static int testcase9(void)
 {
 	/* complicated seek */
-    printf("TEST 7\n");
 	int tmp;
 	int fd;
 	fd = sfs_open("root","file7");
@@ -218,7 +217,6 @@ static int testcase9(void)
 	sfs_seek(fd, 0, SFS_SEEK_SET);
 	memset(tmpbuf, 0, BLOCK_SIZE);
 	tmp = sfs_read(fd, tmpbuf, 13);
-    printf("FD: %s\n", tmpbuf);
 	if (tmp != 13)
 		return 1;
 	sfs_close(fd);
@@ -238,6 +236,7 @@ static int testcase10(void)
 		if (tmp != 12)
 			return 1;
 	}
+    printf("HERE\n");
 	sfs_seek(fd, 0, SFS_SEEK_SET);
 	for (i = 0; i < 8000; ++i) {
 		tmp = sfs_read(fd, tmpbuf, 12);
