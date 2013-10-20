@@ -550,7 +550,7 @@ int sfs_write(int fd, void *buf, int length)
             printf("WRITE BEFORE: %s\n", tmp);
             memcpy(&(tmp[cur % BLOCK_SIZE]), p, BLOCK_SIZE - cur);
             sfs_write_block(&tmp, *(bids));
-            printf("WRITE: %s\n", tmp);
+            printf("WRITE: %d\n", sizeof(tmp));
             length_left = length - ((cur + length) % BLOCK_SIZE);
         }
         else{
