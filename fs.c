@@ -166,7 +166,8 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
 	*/
     start = cur / BLOCK_SIZE;
     end = (cur + length) / BLOCK_SIZE;
-    sfs_read_block(&frame, fdtable[fd].inode.first_frame);
+    temp = fdtable[fd].inode.first_frame;
+    sfs_read_block(&frame, temp);
     int ii;
     blkid temp;
     for(ii = 0; ii < cur / (BLOCK_SIZE * SFS_FRAME_COUNT); ii++){
