@@ -8,6 +8,7 @@
 /* TODO:    FIX: check if no files */
 /*          ?: does the dir need to be made in sfs_open() if the */
 /*             dirname is not found */
+/*          BUG: infinit loop in open on test 7 */
 
 /* constant of how many bits in one freemap entry */
 #define SFS_NBITS_IN_FREEMAP_ENTRY (sizeof(u32)*8)
@@ -363,6 +364,7 @@ int sfs_open(char *dirname, char *name)
             break;
         }
     }
+    printf("HERE\n");
 	/* TODO: find the dir first */
     dir_bid = sfs_find_dir(dirname);
     if(dir_bid == 0)
