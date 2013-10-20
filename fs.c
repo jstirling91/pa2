@@ -547,7 +547,7 @@ int sfs_write(int fd, void *buf, int length)
     for(i = 0; i < n; i++){
         if(i == 0){
             sfs_read_block(&tmp, *(bids));
-            printf("WRITE BEFORE: %s\n", tmp);
+            printf("WRITE BEFORE: %d\n", fdtable[fd].inode.size);
             memcpy(&(tmp[cur % BLOCK_SIZE]), p, BLOCK_SIZE - cur);
             sfs_write_block(&tmp, *(bids));
             printf("WRITE: %s\n", p);
