@@ -577,8 +577,9 @@ int sfs_write(int fd, void *buf, int length)
             sfs_write_block(&tmp, *(bids + i));
             length_left = length_left - BLOCK_SIZE;
         }
-        printf("  SIZE: %d   BID: %d\n", fdtable[fd].inode.size, *bids);
+        
     }
+    printf("  SIZE: %d   BID: %d\n", fdtable[fd].inode.size, *bids);
     
     
 	/* TODO: update the cursor and free the temp buffer
