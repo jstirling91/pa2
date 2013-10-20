@@ -172,13 +172,13 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
         sfs_read_block(&frame, frame.next);
     }
     ii = 0;
-    
+    printf("START: %d, FINISH: %d", start, end);
     for(i = start; i <= end; i++){
         if(frame.content[i % SFS_FRAME_COUNT] == 0){
             frame.content[i % SFS_FRAME_COUNT] = sfs_alloc_block();
         }
         *(bids + ii) = frame.content[i % SFS_FRAME_COUNT];
-        printf("BIDS: %d\n ", frame.content[i % SFS_FRAME_COUNT]);
+        printf("BIDS: %d\n", frame.content[i % SFS_FRAME_COUNT]);
         
         ii++;
     }
