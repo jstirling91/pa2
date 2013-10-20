@@ -100,8 +100,32 @@ static void sfs_resize_file(int fd, u32 new_size)
 	sfs_inode_frame_t frame;
 
 	/* TODO: check if new frames are required */
+    j = new_nframe - old_nframe;
+    if(j == 0)
+        return;
 	
 	/* TODO: allocate a full frame */
+    sfs_inode_t inode = fdtable[fd].inode;
+    frame_bid = inode.first_frame;
+    if(frame_bid == 0){
+        frame_bid = sfs_alloc_block();
+        inode.first_frame = frame_bid;
+        sfs_write_block(&inode, fdtable[fd].inode_bid);
+//        sfs_write_block(&frame, frame_bid);
+    }
+    else do {
+        sfs_read_block(&frame, frame_bid);
+        frame_bid = frame.next;
+    } while (frame_bid != 0);
+    blkid temp;
+    for(i = 0; i < j; i++){
+        temp = sfs_alloc_block();
+        frame.next = temp;
+        sfs_write_block(&frame, frame_bid);
+        frame_bid = temp;
+    }
+    frame.next = 0;
+    sfs_write_block(&frame, frame_bid);
 
 	/* TODO: add the new frame to the inode frame list
 	   Note that if the inode is changed, you need to write it to the disk
@@ -128,6 +152,17 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
 	/* TODO: find blocks between start and end.
 	   Transverse the frame list if needed
 	*/
+    start = cur % BLOCK_SIZE;
+    end = (cur + length) % BLOCK_SIZE;
+    sfs_read_block(&frame, fdtable[fd].inode.first_frame);
+    int ii;
+    for(ii = 0; ii < cur % (BLOCK_SIZE * SFS_FRAME_COUNT); ii++){
+        sfs_read_block(&frame, frame.next);
+    }
+    ii = 0;
+    for(i = start; i <= end; i++){
+        *(bids + ii) = frame.content[i % SFS_FRAME_COUNT];
+    }
 	return 0;
 }
 
@@ -461,13 +496,37 @@ int sfs_write(int fd, void *buf, int length)
 	u32 cur = fdtable[fd].cur;
 
 	/* TODO: check if we need to resize */
+    sfs_inode_t inode = fdtable[fd].inode;
+    if(cur + length > inode.size){
+        sfs_resize_file(fd, cur + length);
+        inode.size = cur + length;
+    }
 	
 	/* TODO: get the block ids of all contents (using sfs_get_file_content() */
-
+    n = (cur + length) % BLOCK_SIZE;
+    bids = (int *)malloc(n);
+    sfs_get_file_content(bids, fd, cur, length);
+    
 	/* TODO: main loop, go through every block, copy the necessary parts
 	   to the buffer, consult the hint in the document. Do not forget to 
 	   flush to the disk.
 	*/
+    int length_left = length;
+    for(i = 0; i < n; i++){
+        if(i == 0){
+            sfs_read_block(&tmp, *(bids));
+            memcpy(&(tmp[cur % BLOCK_SIZE]), p, (cur + length) % BLOCK_SIZE);
+            sfs_write_block(&tmp, *(bids));
+            length_left = length - ((cur + length) % BLOCK_SIZE);
+        }
+        else{
+            sfs_write_block(&tmp, *(bids + i));
+            memcpy(&tmp, (p + length - length_left), BLOCK_SIZE);
+            sfs_write_block(&tmp, *(bids + i));
+            length_left = length_left - BLOCK_SIZE;
+        }
+    }
+    
 	/* TODO: update the cursor and free the temp buffer
 	   for sfs_get_file_content()
 	*/
