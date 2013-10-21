@@ -560,6 +560,7 @@ int sfs_write(int fd, void *buf, int length)
         }
         else{
             sfs_write_block(&tmp, *(bids + i));
+            printf("TEMP: %s/n", tmp);
             memcpy(&tmp, (p + length - length_left), BLOCK_SIZE);
             sfs_write_block(&tmp, *(bids + i));
             
