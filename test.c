@@ -235,13 +235,8 @@ static int testcase10(void)
 		tmp = sfs_write(fd, "hello world", 12);
 		if (tmp != 12)
 			return 1;
-//        printf("I: %d", i);
 	}
-    printf("HERE\n");
-//    sfs_write(fd, "hello world", 12);
 	sfs_seek(fd, 0, SFS_SEEK_SET);
-    sfs_read(fd, tmpbuf, 516);
-    printf("OUTPUT: %s\n", tmpbuf);
 	for (i = 0; i < 8000; ++i) {
 		tmp = sfs_read(fd, tmpbuf, 12);
 		if (tmp != 12)

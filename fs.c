@@ -262,7 +262,7 @@ sfs_superblock_t *sfs_print_info()
 {
 	/* TODO: load the superblock from disk and print*/
     sfs_read_block(&sb, 0);
-    //printf("Magic: %d, nblocks: %d, nfreemap_blocks: %d, first_dir: %d\n", sb.magic, sb.nblocks, sb.nfreemap_blocks, sb.first_dir);
+    printf("Magic: %d, nblocks: %d, nfreemap_blocks: %d, first_dir: %d\n", sb.magic, sb.nblocks, sb.nfreemap_blocks, sb.first_dir);
 	return &sb;
 }
 
@@ -357,6 +357,7 @@ int sfs_lsdir()
     sfs_read_block(&dir, sb.first_dir);
     while(dir.next_dir != 0){
         i++;
+        printf("%s\n", dir.dir_name);
         sfs_read_block(&dir, dir.next_dir);
     }
 	return i;
@@ -495,14 +496,14 @@ int sfs_ls()
     int files = 0;
     sfs_read_block(&dir, dir_bid);
     do {
-        //printf("%s\n", dir.dir_name);
+        printf("%s\n", dir.dir_name);
         int i;
         for(i = 0; i < SFS_DB_NINODES; i++){
             sfs_inode_t inode;
             blkid inode_bid = dir.inodes[i];
             if(inode_bid > 2){
                 sfs_read_block(&inode, inode_bid);
-                //printf("\t%s\n", inode.file_name);
+                printf("\t%s\n", inode.file_name);
                 files++;
             }
         }
@@ -551,7 +552,6 @@ int sfs_write(int fd, void *buf, int length)
             if(cur + length > BLOCK_SIZE){
                 memcpy(&(tmp[cur % BLOCK_SIZE]), p, BLOCK_SIZE - cur);
                 length_left = length - (BLOCK_SIZE - cur);
-                printf("OUT1: %d\n", *bids);
             }
             else
                 memcpy(&(tmp[cur % BLOCK_SIZE]), p, length);
@@ -560,11 +560,8 @@ int sfs_write(int fd, void *buf, int length)
         }
         else{
             sfs_write_block(&tmp, *(bids + i));
-            printf("TEMP: %s/n", tmp);
             memcpy(&tmp, (p + length - length_left), BLOCK_SIZE);
             sfs_write_block(&tmp, *(bids + i));
-            
-            printf("OUT: %d\n", *(bids + i));
             length_left = length_left - BLOCK_SIZE;
         }
         
@@ -616,7 +613,6 @@ int sfs_read(int fd, void *buf, int length)
             memcpy((p + length - length_left), &tmp, BLOCK_SIZE);
             length_left = length_left - BLOCK_SIZE;
         }
-//        printf("OUT: %s\n", p);
     }
     fdtable[fd].cur = cur + length;
     free(bids);
