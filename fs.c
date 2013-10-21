@@ -561,7 +561,7 @@ int sfs_write(int fd, void *buf, int length)
             sfs_write_block(&tmp, *(bids + i));
             length_left = length_left - BLOCK_SIZE;
         }
-        printf("OUT: %s\n", p);
+        printf("OUT: %d\n", cur);
         
     }
     
