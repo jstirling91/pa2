@@ -162,7 +162,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
 	u32 i;
 	sfs_inode_frame_t frame;
     blkid temp;
-    Printf("   HHHHHHHH");
+    printf("   HHHHHHHH");
 
 	/* TODO: find blocks between start and end.
 	   Transverse the frame list if needed
