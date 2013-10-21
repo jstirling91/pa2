@@ -162,7 +162,6 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
 	u32 i;
 	sfs_inode_frame_t frame;
     blkid temp;
-    printf("   HHHHHHHH");
 
 	/* TODO: find blocks between start and end.
 	   Transverse the frame list if needed
@@ -539,13 +538,17 @@ int sfs_write(int fd, void *buf, int length)
 	char *p = (char *)buf;
 	char tmp[BLOCK_SIZE];
 	u32 cur = fdtable[fd].cur;
-
+    
+    
+    printf("   HHHHHHHH");
+    
 	/* TODO: check if we need to resize */
 //    sfs_inode_t inode = fdtable[fd].inode;
     if(cur + length > fdtable[fd].inode.size){
         sfs_resize_file(fd, cur + length);
         fdtable[fd].inode.size = cur + length;
     }
+    
 	
 	/* TODO: get the block ids of all contents (using sfs_get_file_content() */
     n = ((cur + length) / BLOCK_SIZE) - (cur / BLOCK_SIZE) + 1;
