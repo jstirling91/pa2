@@ -88,7 +88,6 @@ static void sfs_free_block(blkid bid)
  */
 static void sfs_resize_file(int fd, u32 new_size)
 {
-    printf("   HHHHHHHH");
 	/* the length of content that can be hold by a full frame (in bytes) */
 	int frame_size = BLOCK_SIZE * SFS_FRAME_COUNT;
 	/* old file size */
@@ -119,6 +118,7 @@ static void sfs_resize_file(int fd, u32 new_size)
 //        sfs_write_block(&frame, frame_bid);
     }
     else do {
+        printf("   HHHHHHHH");
         sfs_read_block(&frame, frame_bid);
         frame_bid = frame.next;
     } while (frame_bid != 0);
