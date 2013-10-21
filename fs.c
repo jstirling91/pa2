@@ -111,7 +111,6 @@ static void sfs_resize_file(int fd, u32 new_size)
     frame_bid = inode.first_frame;
     if(frame_bid == 0){
         frame_bid = sfs_alloc_block();
-        //printf("FRAME_BID: %d\n", frame_bid);
         inode.first_frame = frame_bid;
         sfs_write_block(&inode, fdtable[fd].inode_bid);
         fdtable[fd].inode = inode;
@@ -120,7 +119,6 @@ static void sfs_resize_file(int fd, u32 new_size)
     else do {
         sfs_read_block(&frame, frame_bid);
         frame_bid = frame.next;
-        printf("   FRAME_BID: %d", old_size);
     } while (frame_bid != 0);
     blkid temp;
     j = j - i;
@@ -176,11 +174,9 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
     for(ii = 0; ii < cur / (BLOCK_SIZE * SFS_FRAME_COUNT); ii++){
         temp = frame.next;
         sfs_read_block(&frame, temp);
-        printf("BLOCK ID: %d\n", temp);
     }
     //printf("II: %d\n", ii);
     ii = 0;
-    printf("   START: %d, FINISH: %d", start, end);
     for(i = start; i <= end; i++){
         if(i % SFS_FRAME_COUNT == 0 && i != 0){
             sfs_write_block(&frame, temp);
@@ -189,20 +185,13 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
             
         }
         if(frame.content[i % SFS_FRAME_COUNT] == 0){
-            
-//            printf("I: %d end: %d\n", i, end);
             frame.content[i % SFS_FRAME_COUNT] = sfs_alloc_block();
-//            printf("   HERE: %d", i);
         }
-        printf("   HERE: %d", i);
         *(bids + ii) = frame.content[i % SFS_FRAME_COUNT];
-//        //printf("BIDS: %d\n", frame.content[i % SFS_FRAME_COUNT]);
         
         ii++;
     }
     sfs_write_block(&frame, temp);
-//    printf("HERE: %d\n", i);
-//    //printf("TEMP: %d\n", temp);
 	return ii;
 }
 
@@ -222,7 +211,6 @@ static blkid sfs_find_dir(char *dirname)
         if(strcmp(dirname, dir.dir_name) == 0)
             return dir_bid;
         int i = 0;
-        //printf("dir_name: %s\n  dir_next: %d", dir.dir_name, sb.first_dir);
         while(dir.next_dir != 0 && i < 10){
             dir_bid = dir.next_dir;
             sfs_read_block(&dir, dir_bid);
@@ -551,19 +539,14 @@ int sfs_write(int fd, void *buf, int length)
 	
 	/* TODO: get the block ids of all contents (using sfs_get_file_content() */
     n = ((cur + length) / BLOCK_SIZE) - (cur / BLOCK_SIZE) + 1;
-    printf("   N: %d", n);
-//    printf("N: %d\n", n);
     bids = (int *)malloc(n);
     sfs_get_file_content(bids, fd, cur, length);
     printf("   blkid: %d", *bids);
-    if(n == 2)
-        printf("   blkid2: %d", *(bids + 1));
 	/* TODO: main loop, go through every block, copy the necessary parts
 	   to the buffer, consult the hint in the document. Do not forget to 
 	   flush to the disk.
 	*/
     int length_left = length;
-//    //printf("FILE: %s\n", fdtable[fd].inode_bid);
     for(i = 0; i < n; i++){
         if(i == 0){
             sfs_read_block(&tmp, *(bids));
@@ -582,7 +565,6 @@ int sfs_write(int fd, void *buf, int length)
         }
         
     }
-    printf("  SIZE: %d   BID: %d\n", fdtable[fd].inode.size, *bids);
     
     
 	/* TODO: update the cursor and free the temp buffer
@@ -623,7 +605,6 @@ int sfs_read(int fd, void *buf, int length)
         if(i == 0){
             sfs_read_block(&tmp, *(bids));
             memcpy(p, &(tmp[cur % BLOCK_SIZE]), (cur + length) % BLOCK_SIZE);
-            //printf("READ: %s\n", p);
             length_left = length - ((cur + length) % BLOCK_SIZE);
         }
         else{
@@ -655,15 +636,12 @@ int sfs_seek(int fd, int relative, int loc)
     switch (loc) {
         case SFS_SEEK_SET:
             fdtable[fd].cur = relative;
-//            printf("SET: %d\n", fdtable[fd].cur);
             break;
         case SFS_SEEK_CUR:
             fdtable[fd].cur = fdtable[fd].cur + relative;
-//            printf("CUR: %d\n", fdtable[fd].cur);
             break;
         case SFS_SEEK_END:
             fdtable[fd].cur = fdtable[fd].inode.size + relative;
-//            printf("END: %d\n", fdtable[fd].cur);
             break;
     }
 	return 0;
