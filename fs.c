@@ -175,7 +175,6 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
         temp = frame.next;
         sfs_read_block(&frame, temp);
     }
-    //printf("II: %d\n", ii);
     ii = 0;
     for(i = start; i <= end; i++){
         if(i % SFS_FRAME_COUNT == 0 && i != 0){
@@ -398,7 +397,6 @@ int sfs_open(char *dirname, char *name)
             sfs_read_block(&inode, inode_bid);
             if(strcmp(name, inode.file_name) == 0){
                 fdtable[fd].inode = inode;
-                printf("   INODE_SIZE: %d\n", fdtable[fd].inode.size);
                 fdtable[fd].inode_bid = inode_bid;
                 fdtable[fd].dir_bid = dir_bid;
                 fdtable[fd].cur = 0;
@@ -541,7 +539,6 @@ int sfs_write(int fd, void *buf, int length)
     n = ((cur + length) / BLOCK_SIZE) - (cur / BLOCK_SIZE) + 1;
     bids = (int *)malloc(n);
     sfs_get_file_content(bids, fd, cur, length);
-    printf("   blkid: %d", *bids);
 	/* TODO: main loop, go through every block, copy the necessary parts
 	   to the buffer, consult the hint in the document. Do not forget to 
 	   flush to the disk.
