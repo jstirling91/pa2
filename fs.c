@@ -178,8 +178,6 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
     }
     ii = 0;
     for(i = start; i <= end; i++){
-        
-        printf("HERE\n");
         if(i % SFS_FRAME_COUNT == 0 && i != 0){
             sfs_write_block(&frame, temp);
             temp = frame.next;
@@ -188,6 +186,10 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
         }
         if(frame.content[i % SFS_FRAME_COUNT] == 0){
             frame.content[i % SFS_FRAME_COUNT] = sfs_alloc_block();
+        }
+        else{
+            
+            printf("HERE\n");
         }
         *(bids + ii) = frame.content[i % SFS_FRAME_COUNT];
         
