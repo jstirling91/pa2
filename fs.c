@@ -538,6 +538,8 @@ int sfs_write(int fd, void *buf, int length)
 	char *p = (char *)buf;
 	char tmp[BLOCK_SIZE];
 	u32 cur = fdtable[fd].cur;
+    
+    printf("   HHHHHHHH");
 
 	/* TODO: check if we need to resize */
 //    sfs_inode_t inode = fdtable[fd].inode;
