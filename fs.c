@@ -542,8 +542,8 @@ int sfs_write(int fd, void *buf, int length)
 	/* TODO: check if we need to resize */
 //    sfs_inode_t inode = fdtable[fd].inode;
     if(cur + length > fdtable[fd].inode.size){
-        printf("   HHHHHHHH");
         sfs_resize_file(fd, cur + length);
+        printf("   HHHHHHHH");
         fdtable[fd].inode.size = cur + length;
     }
 	
