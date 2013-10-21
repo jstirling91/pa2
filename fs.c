@@ -660,7 +660,7 @@ int sfs_seek(int fd, int relative, int loc)
 int sfs_eof(int fd)
 {
 	/* TODO: check if the cursor has gone out of bound */
-    if(fdtable[fd].inode.size < fdtable[fd].cur)
-//        return 1;
+    if(fdtable[fd].inode.size - 1 == fdtable[fd].cur)
+        return 1;
 	return 0;
 }
