@@ -559,9 +559,9 @@ int sfs_write(int fd, void *buf, int length)
             sfs_write_block(&tmp, *(bids + i));
             memcpy(&tmp, (p + length - length_left), BLOCK_SIZE);
             sfs_write_block(&tmp, *(bids + i));
-            length_left = length_left - BLOCK_SIZE;
             
-            printf("OUT: %d\n", cur);
+            printf("OUT: %d\n", length_left);
+            length_left = length_left - BLOCK_SIZE;
         }
         
     }
