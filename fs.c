@@ -564,7 +564,7 @@ int sfs_write(int fd, void *buf, int length)
             memcpy(&tmp, (p + length - length_left), BLOCK_SIZE);
             sfs_write_block(&tmp, *(bids + i));
             
-            printf("OUT: %d\n", length_left);
+            printf("OUT: %d\n", *(bids + i));
             length_left = length_left - BLOCK_SIZE;
         }
         
