@@ -162,6 +162,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
 	u32 i;
 	sfs_inode_frame_t frame;
     blkid temp;
+    Printf("   HHHHHHHH");
 
 	/* TODO: find blocks between start and end.
 	   Transverse the frame list if needed
@@ -192,7 +193,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
             
 //            printf("I: %d end: %d\n", i, end);
             frame.content[i % SFS_FRAME_COUNT] = sfs_alloc_block();
-            printf("HERE: %d", i);
+            printf("   HERE: %d", i);
         }
         *(bids + ii) = frame.content[i % SFS_FRAME_COUNT];
 //        //printf("BIDS: %d\n", frame.content[i % SFS_FRAME_COUNT]);
