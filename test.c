@@ -238,7 +238,8 @@ static int testcase10(void)
 //        printf("I: %d", i);
 	}
     printf("HERE\n");
-    sfs_seek(fd, 12, SFS_SEEK_CUR);
+    sfs_read(fd, tmpbuf, 516);
+    printf("OUTPUT: %s\n", tmpbuf);
     sfs_write(fd, "hello world", 12);
 	sfs_seek(fd, 0, SFS_SEEK_SET);
 	for (i = 0; i < 43; ++i) {
