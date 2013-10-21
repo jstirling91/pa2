@@ -551,6 +551,7 @@ int sfs_write(int fd, void *buf, int length)
             if(cur + length > BLOCK_SIZE){
                 memcpy(&(tmp[cur % BLOCK_SIZE]), p, BLOCK_SIZE - cur);
                 length_left = length - (BLOCK_SIZE - cur);
+                printf("OUT1: %d\n", *bids);
             }
             else
                 memcpy(&(tmp[cur % BLOCK_SIZE]), p, length);
