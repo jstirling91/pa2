@@ -118,9 +118,9 @@ static void sfs_resize_file(int fd, u32 new_size)
 //        sfs_write_block(&frame, frame_bid);
     }
     else do {
-        printf("   HHHHHHHH");
         sfs_read_block(&frame, frame_bid);
         frame_bid = frame.next;
+        printf("   FRAME_BID: %d", old_size);
     } while (frame_bid != 0);
     blkid temp;
     j = j - i;
@@ -180,10 +180,9 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
     }
     //printf("II: %d\n", ii);
     ii = 0;
-//    ////printf("START: %d, FINISH: %d\n", start, end);
+    printf("   START: %d, FINISH: %d", start, end);
     for(i = start; i <= end; i++){
         if(i % SFS_FRAME_COUNT == 0 && i != 0){
-            printf("HERE: %d\n", i);
             sfs_write_block(&frame, temp);
             temp = frame.next;
             sfs_read_block(&frame, temp);
@@ -411,6 +410,7 @@ int sfs_open(char *dirname, char *name)
             sfs_read_block(&inode, inode_bid);
             if(strcmp(name, inode.file_name) == 0){
                 fdtable[fd].inode = inode;
+                printf("   INODE_SIZE: %d\n", fdtable[fd].inode.size);
                 fdtable[fd].inode_bid = inode_bid;
                 fdtable[fd].dir_bid = dir_bid;
                 fdtable[fd].cur = 0;
@@ -542,11 +542,11 @@ int sfs_write(int fd, void *buf, int length)
 	u32 cur = fdtable[fd].cur;
 
 	/* TODO: check if we need to resize */
-    sfs_inode_t inode = fdtable[fd].inode;
-    printf("HERE\n");
+//    sfs_inode_t inode = fdtable[fd].inode;
     if(cur + length > fdtable[fd].inode.size){
         sfs_resize_file(fd, cur + length);
         fdtable[fd].inode.size = cur + length;
+        sfs_write_block(&(fdtable[fd].inode), fdtable[fd].inode_bid);
     }
 	
 	/* TODO: get the block ids of all contents (using sfs_get_file_content() */
