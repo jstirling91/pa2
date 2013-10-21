@@ -538,17 +538,13 @@ int sfs_write(int fd, void *buf, int length)
 	char *p = (char *)buf;
 	char tmp[BLOCK_SIZE];
 	u32 cur = fdtable[fd].cur;
-    
-    
-    printf("   HHHHHHHH");
-    
+
 	/* TODO: check if we need to resize */
 //    sfs_inode_t inode = fdtable[fd].inode;
     if(cur + length > fdtable[fd].inode.size){
         sfs_resize_file(fd, cur + length);
         fdtable[fd].inode.size = cur + length;
     }
-    
 	
 	/* TODO: get the block ids of all contents (using sfs_get_file_content() */
     n = ((cur + length) / BLOCK_SIZE) - (cur / BLOCK_SIZE) + 1;
