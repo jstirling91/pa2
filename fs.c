@@ -189,7 +189,7 @@ static u32 sfs_get_file_content(blkid *bids, int fd, u32 cur, u32 length)
         }
         else{
             
-            printf("HERE\n");
+            printf("HERE111\n");
         }
         *(bids + ii) = frame.content[i % SFS_FRAME_COUNT];
         
