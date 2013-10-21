@@ -606,10 +606,11 @@ int sfs_read(int fd, void *buf, int length)
             length_left = length - ((cur + length) % BLOCK_SIZE);
         }
         else{
-            sfs_write_block(&tmp, *(bids + i));
+            sfs_read_block(&tmp, *(bids + i));
             memcpy((p + length - length_left), &tmp, BLOCK_SIZE);
             length_left = length_left - BLOCK_SIZE;
         }
+        printf("OUT: %s", p);
     }
     fdtable[fd].cur = cur + length;
     free(bids);
